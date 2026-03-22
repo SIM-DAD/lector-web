@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lector — Write. Hear It Back. In Any Voice.</title>
+  <meta name="description" content="Lector is a distraction-free Markdown editor with sentence-level read-aloud and voice cloning. Runs entirely on your machine — no cloud, no subscription.">
+  <meta property="og:title" content="Lector — Write. Hear It Back. In Any Voice.">
+  <meta property="og:description" content="Distraction-free Markdown editing with AI-powered text-to-speech and voice cloning. 100% local.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────── */
+    :root {
+      --bg:      #f5f4f1;
+      --text:    #1c1c1a;
+      --acc1:    #2d6a4f;   /* forest green — reading / writing */
+      --acc2:    #74c69d;   /* soft green accent */
+      --acc3:    #1b3a2d;   /* deep green / navy equivalent */
+      --white:   #ffffff;
+      --border:  #e0ded8;
+      --muted:   #6b6968;
+      --font:    'Inter', system-ui, -apple-system, sans-serif;
+      --radius:  10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88em;
+      background: rgba(0,0,0,0.06);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .container { max-width: 1020px; margin: 0 auto; }
+
+    .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--acc1);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+      margin-bottom: 1rem;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 580px;
+    }
+
+    /* ── BUTTONS ────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; }
+    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.88rem; }
+
+    .btn-green {
+      background: var(--acc1);
+      color: #fff;
+    }
+    .btn-green:hover {
+      background: #1f4f39;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(45,106,79,.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--text); }
+
+    .btn-dark {
+      background: var(--acc3);
+      color: #fff;
+    }
+    .btn-dark:hover {
+      background: #0e2219;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(27,58,45,.3);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,.45);
+    }
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+    /* ── NAV ────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: 62px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+    .nav-logo-name {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+    .nav-logo-name em {
+      font-style: normal;
+      color: var(--acc1);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+    .nav-links a.text-link {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a.text-link:hover { opacity: 1; }
+
+    /* ── HERO ───────────────────────────────────────── */
+    .hero {
+      padding: 6rem 2rem 4.5rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(45,106,79,.09);
+      color: var(--acc1);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.38rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 6.5vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--acc1);
+    }
+    .hero-sub {
+      font-size: 1.18rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.72;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+    .hero-meta {
+      font-size: 0.8rem;
+      color: #aaa;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    /* ── MOCK EDITOR ────────────────────────────────── */
+    .editor-wrap {
+      max-width: 840px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+    }
+    .editor-frame {
+      background: #1e1e1a;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(27,58,45,.22);
+    }
+    .editor-chrome {
+      background: #2a2a26;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 7px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .editor-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .editor-dot-red   { background: #ff5f57; }
+    .editor-dot-amber { background: #febc2e; }
+    .editor-dot-green { background: #28c840; }
+    .editor-chrome-title {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.35);
+      font-family: 'Courier New', monospace;
+    }
+    .editor-body {
+      padding: 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      min-height: 280px;
+    }
+    .editor-pane-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,.25);
+      margin-bottom: 1rem;
+    }
+    .editor-text {
+      font-family: 'Georgia', serif;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,.75);
+    }
+    .editor-text .highlight {
+      background: rgba(116,198,157,.25);
+      color: #74c69d;
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+    .editor-text .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--acc2);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .voice-panel {
+      border-left: 1px solid rgba(255,255,255,.06);
+      padding-left: 2rem;
+    }
+    .voice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(116,198,157,.12);
+      border: 1px solid rgba(116,198,157,.2);
+      color: var(--acc2);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+    }
+    .voice-waveform {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 1.25rem;
+    }
+    .wave-bar {
+      width: 4px;
+      background: var(--acc2);
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+    .voice-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .voice-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,.45);
+    }
+    .voice-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); flex-shrink: 0; }
+    .voice-dot.active { background: var(--acc2); }
+
+    /* ── HOW IT WORKS ───────────────────────────────── */
+    .how-section { padding: 5rem 2rem; }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3.5rem;
+    }
+    .how-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .how-number {
+      width: 38px; height: 38px;
+      background: var(--acc1);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .how-card h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+    .how-card p  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── WHY SECTION ────────────────────────────────── */
+    .why-section {
+      background: var(--acc3);
+      color: #fff;
+      padding: 5.5rem 2rem;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-grid .label { color: var(--acc2); }
+    .why-grid .section-title { color: #fff; }
+    .why-grid .section-body { color: rgba(255,255,255,.72); max-width: 100%; }
+    .why-cta { margin-top: 2.2rem; }
+    .why-list { display: flex; flex-direction: column; gap: 1.4rem; }
+    .why-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .why-icon {
+      width: 42px; height: 42px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+    }
+    .why-item h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .why-item p  { font-size: 0.83rem; color: rgba(255,255,255,.58); line-height: 1.55; }
+
+    /* ── VOICES ─────────────────────────────────────── */
+    .voices-section { padding: 5rem 2rem; }
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.4rem;
+      margin-top: 3rem;
+    }
+    .voice-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+    }
+    .voice-card .icon { font-size: 1.7rem; margin-bottom: 0.75rem; }
+    .voice-card h3 { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .voice-card p  { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+    .voice-card .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 99px;
+      margin-top: 0.6rem;
+    }
+    .tag-cpu  { background: rgba(45,106,79,.1); color: var(--acc1); }
+    .tag-gpu  { background: rgba(27,58,45,.12); color: var(--acc3); }
+
+    /* ── REQUIREMENTS ───────────────────────────────── */
+    .req-section {
+      background: var(--white);
+      padding: 5.5rem 2rem;
+    }
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .req-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .req-card h3 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.6rem; }
+    .req-card p  { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .req-card small { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; font-weight: 400; }
+
+    /* ── LICENSE ────────────────────────────────────── */
+    .license-section { padding: 5rem 2rem; }
+    .license-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 3rem;
+      max-width: 760px;
+      margin: 3rem auto 0;
+    }
+    .license-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; }
+    .license-card p  { font-size: 0.93rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .license-card p:last-child { margin-bottom: 0; }
+
+    /* ── EMAIL ──────────────────────────────────────── */
+    .email-section {
+      background: var(--acc3);
+      padding: 5.5rem 2rem;
+      text-align: center;
+    }
+    .email-section .label { color: var(--acc2); }
+    .email-section .section-title { color: #fff; margin-bottom: 0.75rem; }
+    .email-section .section-body { color: rgba(255,255,255,.65); margin: 0 auto 2.5rem; text-align: center; }
+    .email-form {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .email-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: 0.75rem 1.1rem;
+      border-radius: 6px;
+      border: 1.5px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .email-form input::placeholder { color: rgba(255,255,255,.4); }
+    .email-form input:focus { border-color: var(--acc2); }
+    .email-fine {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.35);
+      margin-top: 1rem;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: #111210;
+      color: rgba(255,255,255,.55);
+      padding: 2.5rem 2rem;
+    }
+    .footer-row {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .footer-brand-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
+    .footer-brand-sub  { font-size: 0.78rem; margin-top: 0.15rem; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy {
+      max-width: 1020px;
+      margin: 0 auto;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.28);
+      line-height: 1.6;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 720px) {
+      .editor-body { grid-template-columns: 1fr; }
+      .voice-panel { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.06); padding-top: 1.5rem; }
+      .why-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-name">Lec<em>tor</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="#how-it-works" class="text-link">How it works</a>
+      <a href="#voices" class="text-link">Voices</a>
+      <a href="#notify" class="btn btn-green btn-sm">Get notified</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5zm0 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-9a3 3 0 0 0-3 3v3h6V6a3 3 0 0 0-3-3z"/></svg>
+        100% local &mdash; no cloud, ever
+      </div>
+
+      <h1>Write. Hear it back.<br><em>In any voice.</em></h1>
+
+      <p class="hero-sub">
+        Lector is a distraction-free Markdown editor that reads your writing back to you —
+        sentence by sentence, word by word — using AI that runs entirely on your machine.
+        Clone any voice from a short audio sample. No cloud. No subscription.
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-green btn-lg">Download on GitHub &rarr;</a>
+        <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
+      </div>
+
+      <div class="hero-meta">
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Windows 10 &amp; 11
+        </span>
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Free for personal use
+        </span>
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          GPU optional
+        </span>
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          No internet after install
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MOCK EDITOR ══════════ -->
+  <div class="editor-wrap">
+    <div class="editor-frame">
+      <div class="editor-chrome">
+        <div class="editor-dot editor-dot-red"></div>
+        <div class="editor-dot editor-dot-amber"></div>
+        <div class="editor-dot editor-dot-green"></div>
+        <span class="editor-chrome-title">draft.md — Lector</span>
+      </div>
+      <div class="editor-body">
+        <div>
+          <div class="editor-pane-label">Editor</div>
+          <p class="editor-text">
+            The study examined how avatar appearance affects social behavior in virtual environments.
+            <span class="highlight">Participants who selected avatars dissimilar to their offline identity</span>
+            reported higher levels of immersion and social presence than the control group.
+            <span class="cursor"></span>
+          </p>
+        </div>
+        <div class="voice-panel">
+          <div class="editor-pane-label">Voice</div>
+          <div class="voice-pill">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a4 4 0 0 1 4 4v7a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 17.93V22h2v-3.07A8.001 8.001 0 0 0 20 11h-2a6 6 0 0 1-12 0H4a8.001 8.001 0 0 0 7 7.93z"/></svg>
+            Playing
+          </div>
+          <div class="voice-waveform">
+            <div class="wave-bar" style="height:12px"></div>
+            <div class="wave-bar" style="height:22px"></div>
+            <div class="wave-bar" style="height:18px"></div>
+            <div class="wave-bar" style="height:28px"></div>
+            <div class="wave-bar" style="height:20px"></div>
+            <div class="wave-bar" style="height:32px"></div>
+            <div class="wave-bar" style="height:16px"></div>
+            <div class="wave-bar" style="height:24px"></div>
+            <div class="wave-bar" style="height:14px"></div>
+            <div class="wave-bar" style="height:20px"></div>
+            <div class="wave-bar" style="height:10px"></div>
+            <div class="wave-bar" style="height:18px"></div>
+          </div>
+          <div class="voice-list">
+            <div class="voice-item"><div class="voice-dot active"></div> My Voice (cloned)</div>
+            <div class="voice-item"><div class="voice-dot"></div> Aria — US English</div>
+            <div class="voice-item"><div class="voice-dot"></div> Ryan — UK English</div>
+            <div class="voice-item"><div class="voice-dot"></div> Natasha — AU English</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ HOW IT WORKS ══════════ -->
+  <section class="how-section" id="how-it-works">
+    <div class="container">
+      <div class="label">How it works</div>
+      <h2 class="section-title">Write. Pause.<br>Let it read back to you.</h2>
+      <p class="section-body">
+        Lector plays your writing back to you at the sentence level, with word-by-word highlighting,
+        so you catch what your eyes skip over. Every voice — including your own — runs on your machine.
+      </p>
+
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-number">1</div>
+          <h3>Open or paste your draft</h3>
+          <p>Paste text directly, or open a <code>.docx</code> or <code>.md</code> file. Lector strips citation markers automatically so your text reads cleanly.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-number">2</div>
+          <h3>Click anywhere and press Play</h3>
+          <p>Lector starts reading from wherever your cursor is. Each word is highlighted as it's spoken. Press <code>Escape</code> to stop at any point.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-number">3</div>
+          <h3>Hear it in any voice</h3>
+          <p>Choose from 10 built-in Edge TTS neural voices, or clone any voice from a 10–20 second audio sample. Cloned voices use F5-TTS locally — no account, no upload.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-number">4</div>
+          <h3>Save your draft</h3>
+          <p>Auto-saves your text in the browser between sessions. Export as <code>.md</code> any time with <code>Ctrl+S</code> or the Save button.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WHY LECTOR ══════════ -->
+  <div class="why-section">
+    <div class="container why-grid">
+      <div>
+        <div class="label">Why Lector?</div>
+        <h2 class="section-title">Your ears catch what<br>your eyes miss.</h2>
+        <p class="section-body">
+          Reading your own writing silently is unreliable — your brain fills in what it expects, not what's on the page. Hearing it read back forces a different kind of attention. Lector makes that part of the workflow, not an afterthought.
+        </p>
+        <p class="section-body" style="margin-top:1rem">
+          And because every voice runs locally, your manuscript never touches a server.
+          Sensitive work stays sensitive.
+        </p>
+        <div class="why-cta">
+          <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-outline-white">Download on GitHub &rarr;</a>
+        </div>
+      </div>
+
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-icon">&#x1F4DD;</div>
+          <div>
+            <h4>Distraction-free editor</h4>
+            <p>Clean writing surface with nothing in the way. Dark mode persists between sessions.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">&#x1F399;&#xFE0F;</div>
+          <div>
+            <h4>Sentence-level playback</h4>
+            <p>Streaming TTS — playback starts immediately, not after the whole document is generated.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">&#x1F9EC;</div>
+          <div>
+            <h4>Voice cloning from 10 seconds</h4>
+            <p>Upload a short WAV or MP3 sample. F5-TTS builds a cloned voice locally — no cloud service, no account.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">&#x1F4E4;</div>
+          <div>
+            <h4>Citation stripping</h4>
+            <p>Numeric <code>[1]</code> and author&ndash;year <code>[Smith et al., 2020]</code> references are silently removed before reading.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ VOICES ══════════ -->
+  <section class="voices-section" id="voices">
+    <div class="container">
+      <div class="label">Voice options</div>
+      <h2 class="section-title">Built-in voices and<br>your own.</h2>
+      <p class="section-body">
+        Ten Edge TTS neural voices ship with Lector and run on any CPU.
+        Voice cloning adds one more — yours — and requires an NVIDIA GPU.
+      </p>
+
+      <div class="voices-grid">
+        <div class="voice-card">
+          <div class="icon">&#x1F1FA;&#x1F1F8;</div>
+          <h3>US English</h3>
+          <p>Aria, Guy, Jenny, Michelle, Roger — five neural voices covering a range of registers and cadences.</p>
+          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
+        </div>
+        <div class="voice-card">
+          <div class="icon">&#x1F1EC;&#x1F1E7;</div>
+          <h3>UK English</h3>
+          <p>Ryan, Sonia — two British English voices for when the cadence matters to your writing.</p>
+          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
+        </div>
+        <div class="voice-card">
+          <div class="icon">&#x1F1E6;&#x1F1FA;</div>
+          <h3>Australian English</h3>
+          <p>Natasha, William — two Australian English voices included in the base install.</p>
+          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
+        </div>
+        <div class="voice-card">
+          <div class="icon">&#x1F9EC;</div>
+          <h3>Clone any voice</h3>
+          <p>Upload a 10–20 second WAV or MP3. Lector clones it locally with F5-TTS. First use downloads ~750 MB of model weights.</p>
+          <span class="tag tag-gpu">NVIDIA GPU required</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ REQUIREMENTS ══════════ -->
+  <section class="req-section">
+    <div class="container">
+      <div class="label">System requirements</div>
+      <h2 class="section-title">Runs on everyday hardware.</h2>
+      <p class="section-body">Built-in voices work on any modern Windows PC. Voice cloning requires an NVIDIA GPU — but it&rsquo;s optional, not required.</p>
+
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Operating System</h3>
+          <p>Windows 10 or 11</p>
+          <small>macOS / Linux supported via <code>launch.sh</code></small>
+        </div>
+        <div class="req-card">
+          <h3>Python</h3>
+          <p>3.12</p>
+          <small>Installed automatically on first launch via setup script</small>
+        </div>
+        <div class="req-card">
+          <h3>GPU (optional)</h3>
+          <p>NVIDIA with CUDA 12.4</p>
+          <small>Required for voice cloning only. Built-in voices work on CPU.</small>
+        </div>
+        <div class="req-card">
+          <h3>First-run download</h3>
+          <p>~3 GB</p>
+          <small>PyTorch and F5-TTS model weights. Downloaded once, then offline.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ LICENSE ══════════ -->
+  <section class="license-section" id="license">
+    <div class="container">
+      <div class="label" style="text-align:center">License</div>
+      <h2 class="section-title" style="text-align:center">Free for personal use.</h2>
+      <div class="license-card">
+        <h3>PolyForm Noncommercial License 1.0.0</h3>
+        <p>Lector is free to use, copy, modify, and share for personal, educational, and noncommercial purposes. You do not need to ask permission for personal use.</p>
+        <p>Commercial use — including use in a revenue-generating workflow, integration into a product for sale, or redistribution as part of a commercial offering — requires written permission from SIM DAD LLC. If you are interested in a commercial license, get in touch.</p>
+        <p>Voluntary tips are welcome and explicitly permitted under the license.</p>
+        <div style="margin-top:1.75rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+          <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-dark">Download on GitHub &rarr;</a>
+          <a href="mailto:ap@simdadllc.com?subject=Lector%20%E2%80%94%20Commercial%20License%20Inquiry" class="btn btn-ghost">Commercial licensing inquiry</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EMAIL CAPTURE ══════════ -->
+  <section class="email-section" id="notify">
+    <div class="container">
+      <div class="label">Stay in the loop</div>
+      <h2 class="section-title">Get notified when<br>Lector goes commercial.</h2>
+      <p class="section-body">
+        Lector is free now. When a commercial version launches &mdash; with a packaged installer, license system, and paid support &mdash; you&rsquo;ll hear about it first.
+      </p>
+      <form class="email-form" action="#" method="post" onsubmit="return false;">
+        <input type="email" placeholder="your@email.com" required autocomplete="email">
+        <button type="submit" class="btn btn-green">Notify me</button>
+      </form>
+      <p class="email-fine">No drip campaigns. One email when the commercial version ships.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-row">
+      <div>
+        <div class="footer-brand-name">Lector</div>
+        <div class="footer-brand-sub">A SIM DAD LLC product</div>
+      </div>
+      <div class="footer-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#voices">Voices</a>
+        <a href="#license">License</a>
+        <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://simdadllc.com">simdadllc.com</a>
+      </div>
+    </div>
+    <p class="footer-copy">
+      &copy; 2026 SIM DAD LLC. All rights reserved. Licensed under PolyForm Noncommercial 1.0.0 for personal use.
+      Voice cloning powered by <a href="https://github.com/SWivid/F5-TTS" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4)">F5-TTS</a> (MIT).
+      Text-to-speech powered by Microsoft Edge TTS.
+    </p>
+  </footer>
+
+</body>
+</html>
