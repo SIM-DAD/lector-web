@@ -3,101 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lector — Write. Hear It Back. In Any Voice.</title>
-  <meta name="description" content="Lector is a distraction-free Markdown editor with sentence-level read-aloud and voice cloning. Runs entirely on your machine — no cloud, no subscription.">
-  <meta property="og:title" content="Lector — Write. Hear It Back. In Any Voice.">
-  <meta property="og:description" content="Distraction-free Markdown editing with AI-powered text-to-speech and voice cloning. 100% local.">
+  <title>Lector — Your writing, read back to you</title>
+  <meta name="description" content="Lector is a distraction-free writing environment with read-aloud built in. Word-by-word highlighting. Your own voice, cloned once. Completely local — no cloud, no subscription.">
+  <meta property="og:title" content="Lector — Your writing, read back to you">
+  <meta property="og:description" content="Write your draft. Hear it back. The voice catches what the eye skips over.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
   <style>
-    /* ── TOKENS ─────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════════
+       DESIGN TOKENS — LECTOR VIOLET
+    ═══════════════════════════════════════════════════════ */
     :root {
-      --bg:      #f5f4f1;
-      --text:    #1c1c1a;
-      --acc1:    #2d6a4f;   /* forest green — reading / writing */
-      --acc2:    #74c69d;   /* soft green accent */
-      --acc3:    #1b3a2d;   /* deep green / navy equivalent */
-      --white:   #ffffff;
-      --border:  #e0ded8;
-      --muted:   #6b6968;
-      --font:    'Inter', system-ui, -apple-system, sans-serif;
-      --radius:  10px;
+      --primary:   #5C4B8A;
+      --primary-h: #4E3F7A;
+      --light:     #EDE9F8;
+      --mid:       #C4B8E8;
+      --text:      #1E2A35;
+      --muted:     #6B6B66;
+      --bg:        #FDFCFF;
+      --surface:   #FFFFFF;
+      --border:    #EAE6F6;
+      --font:      'Lora', Georgia, 'Times New Roman', serif;
+      --radius:    10px;
+      --radius-lg: 16px;
+      --max-w:     1200px;
+      --py:        5rem;
     }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #0F0D17;
+        --surface: #1A1625;
+        --text:    #F0EDF8;
+        --muted:   #A098BA;
+        --border:  #2D2545;
+        --light:   #1D1830;
+        --mid:     #3A3060;
+      }
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
-    code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.88em;
-      background: rgba(0,0,0,0.06);
-      padding: 0.1em 0.35em;
-      border-radius: 3px;
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
-    .container { max-width: 1020px; margin: 0 auto; }
+    .section         { padding: var(--py) 0; }
+    .section-alt     { padding: var(--py) 0; background: var(--light); }
+    .section-surface { padding: var(--py) 0; background: var(--surface); }
 
-    .label {
-      font-size: 0.75rem;
+    .eyebrow {
+      display: block;
+      font-size: 0.74rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--acc1);
-      margin-bottom: 0.85rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.12;
+      letter-spacing: 0.13em;
+      color: var(--primary);
       margin-bottom: 1rem;
+      font-style: normal;
     }
 
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 580px;
-    }
-
-    /* ── BUTTONS ────────────────────────────────────── */
+    /* ─── BUTTONS ────────────────────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      padding: 0.7rem 1.5rem;
-      border-radius: 6px;
+      gap: 0.35rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
       font-family: var(--font);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
+      font-style: normal;
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.15s, border-color 0.2s, color 0.2s;
     }
-    .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; }
-    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.88rem; }
 
-    .btn-green {
-      background: var(--acc1);
+    .btn-primary {
+      background: var(--primary);
       color: #fff;
     }
-    .btn-green:hover {
-      background: #1f4f39;
+    .btn-primary:hover {
+      background: var(--primary-h);
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(45,106,79,.3);
+      box-shadow: 0 6px 22px rgba(92,75,138,.3);
     }
 
     .btn-ghost {
@@ -105,743 +112,905 @@
       color: var(--text);
       border: 1.5px solid var(--border);
     }
-    .btn-ghost:hover { border-color: var(--text); }
+    .btn-ghost:hover { border-color: var(--muted); }
 
-    .btn-dark {
-      background: var(--acc3);
-      color: #fff;
-    }
-    .btn-dark:hover {
-      background: #0e2219;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(27,58,45,.3);
-    }
-
-    .btn-outline-white {
+    .btn-ghost-white {
       background: transparent;
       color: #fff;
-      border: 1.5px solid rgba(255,255,255,.45);
+      border: 1.5px solid rgba(255,255,255,.4);
     }
-    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.07); }
 
-    /* ── NAV ────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      height: 62px;
+    .btn-sm { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
+
+    /* ─── STICKY HEADER ──────────────────────────────────── */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 900;
+      height: 56px;
+      display: flex;
+      align-items: center;
       padding: 0 2rem;
+      transition: background 0.3s, box-shadow 0.3s, border-bottom-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-header.scrolled {
+      background: rgba(253,252,255,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--border);
+      box-shadow: 0 1px 14px rgba(0,0,0,.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .site-header.scrolled {
+        background: rgba(15,13,23,0.9);
+        box-shadow: 0 1px 14px rgba(0,0,0,.35);
+      }
+    }
+
+    .header-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-    }
-    .nav-logo-name {
-      font-weight: 800;
-      font-size: 1.15rem;
-      color: var(--text);
-      letter-spacing: -0.03em;
-    }
-    .nav-logo-name em {
-      font-style: normal;
-      color: var(--acc1);
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-    }
-    .nav-links a.text-link {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.88rem;
-      font-weight: 500;
-      opacity: 0.6;
-      transition: opacity 0.2s;
-    }
-    .nav-links a.text-link:hover { opacity: 1; }
 
-    /* ── HERO ───────────────────────────────────────── */
+    .header-brand {
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
     .hero {
-      padding: 6rem 2rem 4.5rem;
-      text-align: center;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(45,106,79,.09);
-      color: var(--acc1);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.38rem 1rem;
-      border-radius: 99px;
-      margin-bottom: 2rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.6rem, 6.5vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--acc1);
-    }
-    .hero-sub {
-      font-size: 1.18rem;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.72;
-    }
-    .hero-cta {
+      min-height: 100dvh;
       display: flex;
-      gap: 0.85rem;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1.4rem;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
     }
-    .hero-meta {
-      font-size: 0.8rem;
-      color: #aaa;
+
+    .hero-kicker {
+      display: inline-block;
+      background: var(--light);
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.38rem 1.1rem;
+      border-radius: 99px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6.5vw, 4.4rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      font-style: normal;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+
+    .hero-cta {
       display: flex;
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-    }
-    .hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
-    /* ── MOCK EDITOR ────────────────────────────────── */
-    .editor-wrap {
-      max-width: 840px;
-      margin: 0 auto 6rem;
-      padding: 0 2rem;
-    }
-    .editor-frame {
-      background: #1e1e1a;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(27,58,45,.22);
-    }
-    .editor-chrome {
-      background: #2a2a26;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      padding: 0 14px;
-      gap: 7px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .editor-dot { width: 11px; height: 11px; border-radius: 50%; }
-    .editor-dot-red   { background: #ff5f57; }
-    .editor-dot-amber { background: #febc2e; }
-    .editor-dot-green { background: #28c840; }
-    .editor-chrome-title {
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,.35);
-      font-family: 'Courier New', monospace;
-    }
-    .editor-body {
-      padding: 2.5rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      min-height: 280px;
-    }
-    .editor-pane-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,.25);
       margin-bottom: 1rem;
     }
-    .editor-text {
-      font-family: 'Georgia', serif;
-      font-size: 0.93rem;
-      line-height: 1.8;
-      color: rgba(255,255,255,.75);
-    }
-    .editor-text .highlight {
-      background: rgba(116,198,157,.25);
-      color: #74c69d;
-      border-radius: 2px;
-      padding: 0 2px;
-    }
-    .editor-text .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1.1em;
-      background: var(--acc2);
-      vertical-align: text-bottom;
-      animation: blink 1s step-end infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-    .voice-panel {
-      border-left: 1px solid rgba(255,255,255,.06);
-      padding-left: 2rem;
-    }
-    .voice-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(116,198,157,.12);
-      border: 1px solid rgba(116,198,157,.2);
-      color: var(--acc2);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.3rem 0.75rem;
-      border-radius: 99px;
-      margin-bottom: 1.25rem;
-    }
-    .voice-waveform {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      margin-bottom: 1.25rem;
-    }
-    .wave-bar {
-      width: 4px;
-      background: var(--acc2);
-      border-radius: 2px;
-      opacity: 0.7;
-    }
-    .voice-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .voice-item {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,.45);
-    }
-    .voice-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); flex-shrink: 0; }
-    .voice-dot.active { background: var(--acc2); }
 
-    /* ── HOW IT WORKS ───────────────────────────────── */
-    .how-section { padding: 5rem 2rem; }
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.75rem;
-      margin-top: 3.5rem;
+    .cta-fine {
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--muted);
+      margin-bottom: 3.5rem;
     }
-    .how-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-    }
-    .how-number {
-      width: 38px; height: 38px;
-      background: var(--acc1);
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.2rem;
-    }
-    .how-card h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
-    .how-card p  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── WHY SECTION ────────────────────────────────── */
-    .why-section {
-      background: var(--acc3);
-      color: #fff;
-      padding: 5.5rem 2rem;
-    }
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    .why-grid .label { color: var(--acc2); }
-    .why-grid .section-title { color: #fff; }
-    .why-grid .section-body { color: rgba(255,255,255,.72); max-width: 100%; }
-    .why-cta { margin-top: 2.2rem; }
-    .why-list { display: flex; flex-direction: column; gap: 1.4rem; }
-    .why-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .why-icon {
-      width: 42px; height: 42px;
-      flex-shrink: 0;
-      background: rgba(255,255,255,.1);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.15rem;
-    }
-    .why-item h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .why-item p  { font-size: 0.83rem; color: rgba(255,255,255,.58); line-height: 1.55; }
-
-    /* ── VOICES ─────────────────────────────────────── */
-    .voices-section { padding: 5rem 2rem; }
-    .voices-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.4rem;
-      margin-top: 3rem;
-    }
-    .voice-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.6rem;
-    }
-    .voice-card .icon { font-size: 1.7rem; margin-bottom: 0.75rem; }
-    .voice-card h3 { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .voice-card p  { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
-    .voice-card .tag {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.15rem 0.55rem;
-      border-radius: 99px;
-      margin-top: 0.6rem;
-    }
-    .tag-cpu  { background: rgba(45,106,79,.1); color: var(--acc1); }
-    .tag-gpu  { background: rgba(27,58,45,.12); color: var(--acc3); }
-
-    /* ── REQUIREMENTS ───────────────────────────────── */
-    .req-section {
-      background: var(--white);
-      padding: 5.5rem 2rem;
-    }
-    .req-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .req-card {
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-    }
-    .req-card h3 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.6rem; }
-    .req-card p  { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-    .req-card small { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; font-weight: 400; }
-
-    /* ── LICENSE ────────────────────────────────────── */
-    .license-section { padding: 5rem 2rem; }
-    .license-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 3rem;
-      max-width: 760px;
-      margin: 3rem auto 0;
-    }
-    .license-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; }
-    .license-card p  { font-size: 0.93rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
-    .license-card p:last-child { margin-bottom: 0; }
-
-    /* ── EMAIL ──────────────────────────────────────── */
-    .email-section {
-      background: var(--acc3);
-      padding: 5.5rem 2rem;
-      text-align: center;
-    }
-    .email-section .label { color: var(--acc2); }
-    .email-section .section-title { color: #fff; margin-bottom: 0.75rem; }
-    .email-section .section-body { color: rgba(255,255,255,.65); margin: 0 auto 2.5rem; text-align: center; }
-    .email-form {
+    .platform-badges {
       display: flex;
       gap: 0.75rem;
       justify-content: center;
       flex-wrap: wrap;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .email-form input {
-      flex: 1;
-      min-width: 220px;
-      padding: 0.75rem 1.1rem;
-      border-radius: 6px;
-      border: 1.5px solid rgba(255,255,255,.2);
-      background: rgba(255,255,255,.08);
-      color: #fff;
-      font-family: var(--font);
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .email-form input::placeholder { color: rgba(255,255,255,.4); }
-    .email-form input:focus { border-color: var(--acc2); }
-    .email-fine {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,.35);
-      margin-top: 1rem;
     }
 
-    /* ── FOOTER ─────────────────────────────────────── */
-    footer {
-      background: #111210;
-      color: rgba(255,255,255,.55);
-      padding: 2.5rem 2rem;
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--muted);
+      background: var(--surface);
     }
-    .footer-row {
-      max-width: 1020px;
+
+    .platform-badge svg { opacity: 0.4; flex-shrink: 0; }
+
+    .coming-soon-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--light);
+      color: var(--primary);
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    /* ─── PROBLEM ────────────────────────────────────────── */
+    .prose-center {
+      max-width: 720px;
       margin: 0 auto;
+      text-align: center;
+    }
+
+    .prose-center h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .prose-center p {
+      font-size: 1.07rem;
+      font-style: normal;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.3rem;
+    }
+
+    .prose-center p:last-child { margin-bottom: 0; }
+
+    /* ─── DEMO VIDEO ─────────────────────────────────────── */
+    .demo-section {
+      padding: 0 0 5rem;
+      background: var(--bg);
+    }
+
+    .demo-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .demo-placeholder {
+      background: var(--light);
+      border: 1px solid var(--mid);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 35%, rgba(92,75,138,.13) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .demo-play {
+      width: 68px; height: 68px;
+      background: var(--primary);
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .footer-brand-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
-    .footer-brand-sub  { font-size: 0.78rem; margin-top: 0.15rem; }
-    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: 0.85rem; }
-    .footer-links a:hover { color: #fff; }
-    .footer-copy {
-      max-width: 1020px;
-      margin: 0 auto;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,.28);
-      line-height: 1.6;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 6px 24px rgba(92,75,138,.38);
     }
 
-    /* ── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width: 720px) {
-      .editor-body { grid-template-columns: 1fr; }
-      .voice-panel { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.06); padding-top: 1.5rem; }
-      .why-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .demo-caption {
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── FEATURES ───────────────────────────────────────── */
+    .features-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .features-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .features-header p {
+      font-size: 1.05rem;
+      font-style: normal;
+      color: var(--muted);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .feature-icon {
+      width: 46px; height: 46px;
+      background: var(--light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.3rem;
+      color: var(--primary);
+    }
+
+    .feature-card h3 {
+      font-size: 1.02rem;
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      font-style: normal;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── PRICING ────────────────────────────────────────── */
+    .pricing-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pricing-inner h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .price-display {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .price-num {
+      font-size: 4.5rem;
+      font-weight: 700;
+      font-style: normal;
+      letter-spacing: -0.05em;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .price-num sup {
+      font-size: 1.6rem;
+      vertical-align: super;
+      font-weight: 600;
+    }
+
+    .price-label {
+      font-size: 1rem;
+      font-style: normal;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .pricing-body {
+      font-size: 1.05rem;
+      font-style: normal;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── WAITLIST FORM ──────────────────────────────────── */
+    .waitlist-inner {
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .waitlist-inner h2 {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .waitlist-inner .sub {
+      font-size: 1rem;
+      font-style: normal;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .waitlist-form { text-align: left; }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.87rem;
+      font-weight: 600;
+      font-style: normal;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+
+    .form-group input[type="email"] {
+      width: 100%;
+      padding: 0.78rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-style: normal;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input[type="email"]:focus { border-color: var(--primary); }
+    .form-group input::placeholder { color: var(--mid); }
+
+    .radio-group {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.1rem;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.92rem;
+      font-style: normal;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .radio-item input[type="radio"] {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.88rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 600;
+      font-style: normal;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .form-submit:hover:not(:disabled) {
+      background: var(--primary-h);
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-fine {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.9rem;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: var(--light);
+      border-radius: var(--radius-lg);
+    }
+
+    .form-success.visible { display: block; }
+
+    .form-success h3 {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success p {
+      font-style: normal;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .form-error {
+      display: none;
+      font-size: 0.83rem;
+      font-style: normal;
+      color: #c0392b;
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    .form-error.visible { display: block; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    .site-footer {
+      background: var(--text);
+      padding: 3.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-style: italic;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .footer-brand-sub {
+      font-size: 0.77rem;
+      font-style: normal;
+      color: rgba(255,255,255,.42);
+      margin-top: 5px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,.48);
+      font-size: 0.85rem;
+      font-style: normal;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #fff; }
+
+    .footer-copy {
+      max-width: var(--max-w);
+      margin: 1.75rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 0.74rem;
+      font-style: normal;
+      color: rgba(255,255,255,.28);
+      text-align: center;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --py: 3.5rem; }
+      .hero { padding: 6rem 1.5rem 4rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero-cta { gap: 0.75rem; }
+      .site-header { padding: 0 1.25rem; }
+      .container { padding: 0 1.25rem; }
+      .demo-wrap { padding: 0 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.1rem; }
+      .hero-cta .btn { width: 100%; }
+      .platform-badges { gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════ NAV ══════════ -->
-  <nav>
-    <a href="#" class="nav-logo">
-      <span class="nav-logo-name">Lec<em>tor</em></span>
-    </a>
-    <div class="nav-links">
-      <a href="#how-it-works" class="text-link">How it works</a>
-      <a href="#voices" class="text-link">Voices</a>
-      <a href="#notify" class="btn btn-green btn-sm">Get notified</a>
+  <!-- ══════════════════════════════════════════
+       STICKY HEADER
+  ══════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#" class="header-brand">Lector</a>
+      <a href="#waitlist" class="btn btn-primary btn-sm">Join the waitlist</a>
     </div>
-  </nav>
+  </header>
 
-  <!-- ══════════ HERO ══════════ -->
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-badge">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5zm0 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-9a3 3 0 0 0-3 3v3h6V6a3 3 0 0 0-3-3z"/></svg>
-        100% local &mdash; no cloud, ever
-      </div>
+    <span class="hero-kicker">Local-first writing tool &mdash; coming soon</span>
 
-      <h1>Write. Hear it back.<br><em>In any voice.</em></h1>
+    <h1>Your writing,<br>read back to you.</h1>
 
-      <p class="hero-sub">
-        Lector is a distraction-free Markdown editor that reads your writing back to you —
-        sentence by sentence, word by word — using AI that runs entirely on your machine.
-        Clone any voice from a short audio sample. No cloud. No subscription.
-      </p>
+    <p class="hero-sub">
+      Lector is a writing environment with read-aloud built in. Write your draft,
+      then hear it. The voice catches what the eye skips over.
+    </p>
 
-      <div class="hero-cta">
-        <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-green btn-lg">Download on GitHub &rarr;</a>
-        <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
-      </div>
+    <div class="hero-cta">
+      <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
+      <a href="#the-problem" class="btn btn-ghost">See how it works</a>
+    </div>
 
-      <div class="hero-meta">
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Windows 10 &amp; 11
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Free for personal use
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          GPU optional
-        </span>
-        <span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#bbb"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          No internet after install
-        </span>
-      </div>
+    <p class="cta-fine">Free to join &nbsp;&middot;&nbsp; $29 at launch &mdash; one-time, no subscription</p>
+
+    <div class="platform-badges">
+      <span class="platform-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.551H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+        Windows
+        <span class="coming-soon-pill">coming soon</span>
+      </span>
+      <span class="platform-badge">
+        <svg width="14" height="14" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-156.8-105L88 751.9c-11.4 14.6-28.6 20.2-45.9 20.2C14.7 772.1 0 757 0 736c0-16 13.3-38.2 41.6-38.2 16.9 0 31.9 7.1 31.9 7.1l26.9-3.5-83.4-188.5c-12.7-28.3-19.1-57.4-19.1-86.7 0-111.2 91.9-200.2 200.2-200.2 100.4 0 163.2 64.9 163.2 172.2h1.3c13.2-93.5 85.5-172.2 196.2-172.2 45.9 0 88.4 14.9 120 45.9z"/></svg>
+        macOS
+        <span class="coming-soon-pill">coming soon</span>
+      </span>
     </div>
   </section>
 
-  <!-- ══════════ MOCK EDITOR ══════════ -->
-  <div class="editor-wrap">
-    <div class="editor-frame">
-      <div class="editor-chrome">
-        <div class="editor-dot editor-dot-red"></div>
-        <div class="editor-dot editor-dot-amber"></div>
-        <div class="editor-dot editor-dot-green"></div>
-        <span class="editor-chrome-title">draft.md — Lector</span>
-      </div>
-      <div class="editor-body">
-        <div>
-          <div class="editor-pane-label">Editor</div>
-          <p class="editor-text">
-            The study examined how avatar appearance affects social behavior in virtual environments.
-            <span class="highlight">Participants who selected avatars dissimilar to their offline identity</span>
-            reported higher levels of immersion and social presence than the control group.
-            <span class="cursor"></span>
-          </p>
+
+  <!-- ══════════════════════════════════════════
+       DEMO VIDEO
+  ══════════════════════════════════════════ -->
+  <div class="demo-section">
+    <div class="demo-wrap">
+      <div class="demo-placeholder" role="img" aria-label="Demo video placeholder">
+        <div class="demo-play" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <div class="voice-panel">
-          <div class="editor-pane-label">Voice</div>
-          <div class="voice-pill">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a4 4 0 0 1 4 4v7a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 17.93V22h2v-3.07A8.001 8.001 0 0 0 20 11h-2a6 6 0 0 1-12 0H4a8.001 8.001 0 0 0 7 7.93z"/></svg>
-            Playing
-          </div>
-          <div class="voice-waveform">
-            <div class="wave-bar" style="height:12px"></div>
-            <div class="wave-bar" style="height:22px"></div>
-            <div class="wave-bar" style="height:18px"></div>
-            <div class="wave-bar" style="height:28px"></div>
-            <div class="wave-bar" style="height:20px"></div>
-            <div class="wave-bar" style="height:32px"></div>
-            <div class="wave-bar" style="height:16px"></div>
-            <div class="wave-bar" style="height:24px"></div>
-            <div class="wave-bar" style="height:14px"></div>
-            <div class="wave-bar" style="height:20px"></div>
-            <div class="wave-bar" style="height:10px"></div>
-            <div class="wave-bar" style="height:18px"></div>
-          </div>
-          <div class="voice-list">
-            <div class="voice-item"><div class="voice-dot active"></div> My Voice (cloned)</div>
-            <div class="voice-item"><div class="voice-dot"></div> Aria — US English</div>
-            <div class="voice-item"><div class="voice-dot"></div> Ryan — UK English</div>
-            <div class="voice-item"><div class="voice-dot"></div> Natasha — AU English</div>
-          </div>
-        </div>
+        <p class="demo-caption">Demo video coming soon &mdash; showing word-by-word read-aloud in action</p>
       </div>
     </div>
   </div>
 
-  <!-- ══════════ HOW IT WORKS ══════════ -->
-  <section class="how-section" id="how-it-works">
+
+  <!-- ══════════════════════════════════════════
+       PROBLEM
+  ══════════════════════════════════════════ -->
+  <section class="section-alt" id="the-problem">
     <div class="container">
-      <div class="label">How it works</div>
-      <h2 class="section-title">Write. Pause.<br>Let it read back to you.</h2>
-      <p class="section-body">
-        Lector plays your writing back to you at the sentence level, with word-by-word highlighting,
-        so you catch what your eyes skip over. Every voice — including your own — runs on your machine.
-      </p>
-
-      <div class="how-grid">
-        <div class="how-card">
-          <div class="how-number">1</div>
-          <h3>Open or paste your draft</h3>
-          <p>Paste text directly, or open a <code>.docx</code> or <code>.md</code> file. Lector strips citation markers automatically so your text reads cleanly.</p>
-        </div>
-        <div class="how-card">
-          <div class="how-number">2</div>
-          <h3>Click anywhere and press Play</h3>
-          <p>Lector starts reading from wherever your cursor is. Each word is highlighted as it's spoken. Press <code>Escape</code> to stop at any point.</p>
-        </div>
-        <div class="how-card">
-          <div class="how-number">3</div>
-          <h3>Hear it in any voice</h3>
-          <p>Choose from 10 built-in Edge TTS neural voices, or clone any voice from a 10–20 second audio sample. Cloned voices use F5-TTS locally — no account, no upload.</p>
-        </div>
-        <div class="how-card">
-          <div class="how-number">4</div>
-          <h3>Save your draft</h3>
-          <p>Auto-saves your text in the browser between sessions. Export as <code>.md</code> any time with <code>Ctrl+S</code> or the Save button.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ WHY LECTOR ══════════ -->
-  <div class="why-section">
-    <div class="container why-grid">
-      <div>
-        <div class="label">Why Lector?</div>
-        <h2 class="section-title">Your ears catch what<br>your eyes miss.</h2>
-        <p class="section-body">
-          Reading your own writing silently is unreliable — your brain fills in what it expects, not what's on the page. Hearing it read back forces a different kind of attention. Lector makes that part of the workflow, not an afterthought.
+      <div class="prose-center">
+        <span class="eyebrow">The problem</span>
+        <h2>You read what you meant&nbsp;to&nbsp;write.</h2>
+        <p>
+          Every writer knows the feeling. You read a paragraph three times and it looks fine.
+          Then you hear it read aloud and immediately catch the sentence that runs too long,
+          the word that appears twice in four lines, the transition that doesn&rsquo;t quite land.
         </p>
-        <p class="section-body" style="margin-top:1rem">
-          And because every voice runs locally, your manuscript never touches a server.
-          Sensitive work stays sensitive.
+        <p>
+          That&rsquo;s not a grammar problem. It&rsquo;s a prose problem. And the eye misses it
+          because the brain already knows what you meant to say.
         </p>
-        <div class="why-cta">
-          <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-outline-white">Download on GitHub &rarr;</a>
-        </div>
-      </div>
-
-      <div class="why-list">
-        <div class="why-item">
-          <div class="why-icon">&#x1F4DD;</div>
-          <div>
-            <h4>Distraction-free editor</h4>
-            <p>Clean writing surface with nothing in the way. Dark mode persists between sessions.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">&#x1F399;&#xFE0F;</div>
-          <div>
-            <h4>Sentence-level playback</h4>
-            <p>Streaming TTS — playback starts immediately, not after the whole document is generated.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">&#x1F9EC;</div>
-          <div>
-            <h4>Voice cloning from 10 seconds</h4>
-            <p>Upload a short WAV or MP3 sample. F5-TTS builds a cloned voice locally — no cloud service, no account.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">&#x1F4E4;</div>
-          <div>
-            <h4>Citation stripping</h4>
-            <p>Numeric <code>[1]</code> and author&ndash;year <code>[Smith et al., 2020]</code> references are silently removed before reading.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════ VOICES ══════════ -->
-  <section class="voices-section" id="voices">
-    <div class="container">
-      <div class="label">Voice options</div>
-      <h2 class="section-title">Built-in voices and<br>your own.</h2>
-      <p class="section-body">
-        Ten Edge TTS neural voices ship with Lector and run on any CPU.
-        Voice cloning adds one more — yours — and requires an NVIDIA GPU.
-      </p>
-
-      <div class="voices-grid">
-        <div class="voice-card">
-          <div class="icon">&#x1F1FA;&#x1F1F8;</div>
-          <h3>US English</h3>
-          <p>Aria, Guy, Jenny, Michelle, Roger — five neural voices covering a range of registers and cadences.</p>
-          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
-        </div>
-        <div class="voice-card">
-          <div class="icon">&#x1F1EC;&#x1F1E7;</div>
-          <h3>UK English</h3>
-          <p>Ryan, Sonia — two British English voices for when the cadence matters to your writing.</p>
-          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
-        </div>
-        <div class="voice-card">
-          <div class="icon">&#x1F1E6;&#x1F1FA;</div>
-          <h3>Australian English</h3>
-          <p>Natasha, William — two Australian English voices included in the base install.</p>
-          <span class="tag tag-cpu">CPU &mdash; no GPU needed</span>
-        </div>
-        <div class="voice-card">
-          <div class="icon">&#x1F9EC;</div>
-          <h3>Clone any voice</h3>
-          <p>Upload a 10–20 second WAV or MP3. Lector clones it locally with F5-TTS. First use downloads ~750 MB of model weights.</p>
-          <span class="tag tag-gpu">NVIDIA GPU required</span>
-        </div>
+        <p>
+          Hearing your writing is different. The voice doesn&rsquo;t know what you intended.
+          It reads what&rsquo;s actually there.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ REQUIREMENTS ══════════ -->
-  <section class="req-section">
-    <div class="container">
-      <div class="label">System requirements</div>
-      <h2 class="section-title">Runs on everyday hardware.</h2>
-      <p class="section-body">Built-in voices work on any modern Windows PC. Voice cloning requires an NVIDIA GPU — but it&rsquo;s optional, not required.</p>
 
-      <div class="req-grid">
-        <div class="req-card">
-          <h3>Operating System</h3>
-          <p>Windows 10 or 11</p>
-          <small>macOS / Linux supported via <code>launch.sh</code></small>
-        </div>
-        <div class="req-card">
-          <h3>Python</h3>
-          <p>3.12</p>
-          <small>Installed automatically on first launch via setup script</small>
-        </div>
-        <div class="req-card">
-          <h3>GPU (optional)</h3>
-          <p>NVIDIA with CUDA 12.4</p>
-          <small>Required for voice cloning only. Built-in voices work on CPU.</small>
-        </div>
-        <div class="req-card">
-          <h3>First-run download</h3>
-          <p>~3 GB</p>
-          <small>PyTorch and F5-TTS model weights. Downloaded once, then offline.</small>
-        </div>
+  <!-- ══════════════════════════════════════════
+       SOLUTION
+  ══════════════════════════════════════════ -->
+  <section class="section-surface">
+    <div class="container">
+      <div class="prose-center">
+        <span class="eyebrow">The solution</span>
+        <h2>Write here. Hear&nbsp;it&nbsp;here.</h2>
+        <p>
+          Lector puts the read-aloud function inside the writing environment itself.
+          No copying text into another application, no browser tabs, no switching tools mid-edit.
+          You write, you listen, you revise &mdash; all in the same place.
+        </p>
+        <p>
+          Word-by-word highlighting follows the voice so you always know exactly where you are.
+          Click anywhere to start from that point. Jump back a sentence. Change the reading speed.
+          Use one of Lector&rsquo;s built-in voices, or spend a few minutes building your own.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ LICENSE ══════════ -->
-  <section class="license-section" id="license">
+
+  <!-- ══════════════════════════════════════════
+       FEATURES
+  ══════════════════════════════════════════ -->
+  <section class="section">
     <div class="container">
-      <div class="label" style="text-align:center">License</div>
-      <h2 class="section-title" style="text-align:center">Free for personal use.</h2>
-      <div class="license-card">
-        <h3>PolyForm Noncommercial License 1.0.0</h3>
-        <p>Lector is free to use, copy, modify, and share for personal, educational, and noncommercial purposes. You do not need to ask permission for personal use.</p>
-        <p>Commercial use — including use in a revenue-generating workflow, integration into a product for sale, or redistribution as part of a commercial offering — requires written permission from SIM DAD LLC. If you are interested in a commercial license, get in touch.</p>
-        <p>Voluntary tips are welcome and explicitly permitted under the license.</p>
-        <div style="margin-top:1.75rem;display:flex;gap:0.75rem;flex-wrap:wrap">
-          <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener" class="btn btn-dark">Download on GitHub &rarr;</a>
-          <a href="mailto:ap@simdadllc.com?subject=Lector%20%E2%80%94%20Commercial%20License%20Inquiry" class="btn btn-ghost">Commercial licensing inquiry</a>
+      <div class="features-header">
+        <span class="eyebrow">What Lector does</span>
+        <h2>Everything you need to hear your work.</h2>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            </svg>
+          </div>
+          <h3>Read aloud with word-by-word highlighting</h3>
+          <p>Follow every word as Lector reads. Click anywhere to jump to that point. No separate app required — the read-aloud is built into the same surface where you write.</p>
         </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </div>
+          <h3>A writing environment that gets out of the way</h3>
+          <p>Distraction-free by design. WYSIWYG mode renders formatting as you type. Raw Markdown available for those who want it. Toggle between them without losing your place.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </div>
+          <h3>Your voice, built once</h3>
+          <p>Record thirty seconds of audio. Lector builds a voice profile from it. After that, every read-aloud session uses your own voice &mdash; or a voice familiar to you. Built once, yours permanently.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Completely local. Nothing leaves your machine.</h3>
+          <p>No cloud processing. No account required. No internet connection needed after setup. Your drafts and your voice stay on your computer, under your control.</p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ══════════ EMAIL CAPTURE ══════════ -->
-  <section class="email-section" id="notify">
+
+  <!-- ══════════════════════════════════════════
+       PRICING
+  ══════════════════════════════════════════ -->
+  <section class="section-alt">
     <div class="container">
-      <div class="label">Stay in the loop</div>
-      <h2 class="section-title">Get notified when<br>Lector goes commercial.</h2>
-      <p class="section-body">
-        Lector is free now. When a commercial version launches &mdash; with a packaged installer, license system, and paid support &mdash; you&rsquo;ll hear about it first.
-      </p>
-      <form class="email-form" action="#" method="post" onsubmit="return false;">
-        <input type="email" placeholder="your@email.com" required autocomplete="email">
-        <button type="submit" class="btn btn-green">Notify me</button>
-      </form>
-      <p class="email-fine">No drip campaigns. One email when the commercial version ships.</p>
+      <div class="pricing-inner">
+        <span class="eyebrow">Pricing</span>
+        <h2>$29. Once. Yours.</h2>
+        <div class="price-display">
+          <div class="price-num"><sup>$</sup>29</div>
+          <div class="price-label">one-time &nbsp;&middot;&nbsp; up to 3 devices &nbsp;&middot;&nbsp; no subscription</div>
+        </div>
+        <p class="pricing-body">
+          No subscription. No monthly fee. No usage limit. Pay once and Lector is yours,
+          on up to three devices. Windows and Mac.
+        </p>
+        <p class="pricing-body">
+          Lector is currently in development. Join the waitlist to be notified at launch
+          and lock in the $29 price.
+        </p>
+        <a href="#waitlist" class="btn btn-primary">Join the waitlist &mdash; $29 at launch</a>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════ FOOTER ══════════ -->
-  <footer>
-    <div class="footer-row">
+
+  <!-- ══════════════════════════════════════════
+       WAITLIST FORM
+  ══════════════════════════════════════════ -->
+  <section class="section-surface" id="waitlist">
+    <div class="container">
+      <div class="waitlist-inner">
+        <span class="eyebrow">Waitlist</span>
+        <h2>Be first.</h2>
+        <p class="sub">Join the waitlist and we&rsquo;ll notify you the moment Lector is ready.</p>
+
+        <div class="form-success" id="form-success" role="status">
+          <h3>You&rsquo;re on the list.</h3>
+          <p>We&rsquo;ll be in touch when Lector launches.</p>
+        </div>
+
+        <form class="waitlist-form" id="waitlist-form" novalidate>
+          <div class="form-group">
+            <label for="wl-email">Email address <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+            <input
+              type="email"
+              id="wl-email"
+              name="email"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Platform preference <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <div class="radio-group" role="group" aria-label="Platform preference">
+              <label class="radio-item">
+                <input type="radio" name="platform" value="windows"> Windows
+              </label>
+              <label class="radio-item">
+                <input type="radio" name="platform" value="mac"> macOS
+              </label>
+              <label class="radio-item">
+                <input type="radio" name="platform" value="both"> Both
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit" id="form-submit">Join the waitlist</button>
+          <p class="form-error" id="form-error" role="alert"></p>
+          <p class="form-fine">No spam. One email at launch. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
       <div>
-        <div class="footer-brand-name">Lector</div>
-        <div class="footer-brand-sub">A SIM DAD LLC product</div>
+        <div class="footer-brand">Lector</div>
+        <div class="footer-brand-sub">A product of SIM DAD LLC</div>
       </div>
       <div class="footer-links">
-        <a href="#how-it-works">How it works</a>
-        <a href="#voices">Voices</a>
-        <a href="#license">License</a>
-        <a href="https://github.com/sim-dad/lector" target="_blank" rel="noopener">GitHub</a>
         <a href="https://simdadllc.com">simdadllc.com</a>
+        <a href="mailto:hello@simdadllc.com">Contact</a>
+        <a href="#">Privacy policy</a>
       </div>
     </div>
-    <p class="footer-copy">
-      &copy; 2026 SIM DAD LLC. All rights reserved. Licensed under PolyForm Noncommercial 1.0.0 for personal use.
-      Voice cloning powered by <a href="https://github.com/SWivid/F5-TTS" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4)">F5-TTS</a> (MIT).
-      Text-to-speech powered by Microsoft Edge TTS.
-    </p>
+    <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
   </footer>
+
+
+  <script>
+    /* ── WAITLIST CONFIG ───────────────────────────────────────
+       Set WAITLIST_ENDPOINT to your Brevo (or other) API
+       endpoint before going live. Leave empty during development
+       to simulate success locally.
+
+       Brevo setup: Create a list, generate an API key, then POST
+       to https://api.brevo.com/v3/contacts with header
+       api-key: <your-key> and body { email, attributes, listIds }
+
+       Or use a simple serverless function as a proxy.
+    ─────────────────────────────────────────────────────────── */
+    const WAITLIST_ENDPOINT = "";
+
+    /* ── STICKY HEADER ─────────────────────────────────────── */
+    const header = document.getElementById("site-header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+
+    /* ── WAITLIST FORM ─────────────────────────────────────── */
+    document.getElementById("waitlist-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form    = e.target;
+      const btn     = document.getElementById("form-submit");
+      const success = document.getElementById("form-success");
+      const errEl   = document.getElementById("form-error");
+
+      const email    = form.email.value.trim();
+      const platform = [...form.querySelectorAll('[name="platform"]')]
+                         .find(r => r.checked)?.value ?? "";
+
+      errEl.textContent = "";
+      errEl.classList.remove("visible");
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = "Please enter a valid email address.";
+        errEl.classList.add("visible");
+        form.email.focus();
+        return;
+      }
+
+      if (!WAITLIST_ENDPOINT) {
+        /* Development mode: simulate success */
+        form.style.display = "none";
+        success.classList.add("visible");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Submitting\u2026";
+
+      try {
+        const res = await fetch(WAITLIST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, platform, product: "lector" }),
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        form.style.display = "none";
+        success.classList.add("visible");
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        errEl.textContent = "Something went wrong. Please try again or email hello@simdadllc.com.";
+        errEl.classList.add("visible");
+        btn.disabled = false;
+        btn.textContent = "Join the waitlist";
+      }
+    });
+  </script>
 
 </body>
 </html>
