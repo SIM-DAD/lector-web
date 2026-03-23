@@ -505,6 +505,19 @@
       .hero-actions .btn { width: 100%; justify-content: center; }
       .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
+    /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
+    .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
+    .oss-sub { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; max-width: 64ch; }
+    .oss-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .oss-item {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.25rem 0.7rem; border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.775rem; color: var(--muted); text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .oss-item:hover { color: var(--text); border-color: var(--muted); }
+    .oss-item-name { font-weight: 600; color: var(--text); }
   </style>
 </head>
 <body>
@@ -711,6 +724,29 @@
       </div>
     </div>
   </section>
+
+
+  <!-- OPEN SOURCE ATTRIBUTION -->
+  <div class="oss-section">
+    <div class="container">
+      <p class="oss-heading">Open source software</p>
+      <p class="oss-sub">Lector is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
+      <div class="oss-grid">
+        <a class="oss-item" href="https://pytorch.org" target="_blank" rel="noopener"><span class="oss-item-name">PyTorch</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://github.com/SWivid/F5-TTS" target="_blank" rel="noopener"><span class="oss-item-name">F5-TTS</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener"><span class="oss-item-name">faster-whisper</span><span>MIT</span></a>
+        <a class="oss-item" href="https://fastapi.tiangolo.com" target="_blank" rel="noopener"><span class="oss-item-name">FastAPI</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/rany2/edge-tts" target="_blank" rel="noopener"><span class="oss-item-name">edge-tts</span><span>MIT</span></a>
+        <a class="oss-item" href="https://www.uvicorn.org" target="_blank" rel="noopener"><span class="oss-item-name">uvicorn</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://github.com/python-openxmlformats/python-docx" target="_blank" rel="noopener"><span class="oss-item-name">python-docx</span><span>MIT</span></a>
+        <a class="oss-item" href="https://python-markdown.github.io" target="_blank" rel="noopener"><span class="oss-item-name">Markdown</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://github.com/bastibe/python-soundfile" target="_blank" rel="noopener"><span class="oss-item-name">soundfile</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://numpy.org" target="_blank" rel="noopener"><span class="oss-item-name">NumPy</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://www.crummy.com/software/BeautifulSoup/" target="_blank" rel="noopener"><span class="oss-item-name">Beautiful Soup</span><span>MIT</span></a>
+        <a class="oss-item" href="https://pyinstaller.org" target="_blank" rel="noopener"><span class="oss-item-name">PyInstaller</span><span>GPL-2.0 + bootloader exception</span></a>
+      </div>
+    </div>
+  </div>
 
 
   <!-- FOOTER -->
