@@ -546,7 +546,7 @@
         <a href="#problem" class="btn btn-ghost btn-lg">How it works</a>
       </div>
       <p class="hero-meta">
-        $29 at launch &mdash; one-time<span>·</span>Windows &amp; macOS<span>·</span>No account required
+        $29 at launch &mdash; one-time<span>·</span>Windows<span>·</span>No account required
       </p>
     </div>
   </section>
@@ -679,7 +679,7 @@
           <li>Word-by-word highlighting</li>
           <li>Voice cloning via F5-TTS (GPU-accelerated)</li>
           <li>100% local &mdash; no internet after install</li>
-          <li>Windows &amp; macOS</li>
+          <li>Windows</li>
           <li>Lifetime updates for v1.x</li>
         </ul>
         <a href="#waitlist" class="btn btn-primary" style="width:100%;justify-content:center;">Join the waitlist &rarr;</a>
@@ -712,9 +712,7 @@
           <div class="wl-field">
             <label>Platform preference <span>(optional)</span></label>
             <div class="radio-row">
-              <label><input type="radio" name="platform" value="windows"> Windows</label>
-              <label><input type="radio" name="platform" value="mac"> macOS</label>
-              <label><input type="radio" name="platform" value="both"> Both</label>
+              <label><input type="radio" name="platform" value="windows" checked> Windows</label>
             </div>
           </div>
           <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
@@ -767,11 +765,12 @@
 
 
   <script>
-    /* ── WAITLIST ENDPOINT ──────────────────────────────────────────
-       Set to your Brevo (or other) API endpoint before going live.
+    /* ── BREVO BACKEND ENDPOINT ─────────────────────────────────────
+       Set this to your own backend endpoint that calls Brevo Contacts API.
+       Do not expose your Brevo API key in frontend code.
        Leave empty to simulate success locally during development.
     ─────────────────────────────────────────────────────────────── */
-    const WAITLIST_ENDPOINT = "";
+    const BREVO_BACKEND_ENDPOINT = "";
 
     /* ── STICKY NAV ─────────────────────────────────────────────── */
     const nav = document.getElementById("nav");
@@ -802,7 +801,7 @@
       btn.disabled = true;
       btn.textContent = "Joining…";
 
-      if (!WAITLIST_ENDPOINT) {
+      if (!BREVO_BACKEND_ENDPOINT) {
         // Dev mode: simulate success
         await new Promise(r => setTimeout(r, 600));
         form.style.display = "none";
@@ -811,12 +810,29 @@
       }
 
       try {
-        const res = await fetch(WAITLIST_ENDPOINT, {
+        const params = new URLSearchParams(window.location.search);
+        const payload = {
+          email,
+          listName: "lector_waitlist",
+          attributes: {
+            PLATFORM: platform,
+            PRODUCT: "Lector",
+            SOURCE: "lector-web",
+            PAGE_URL: window.location.href,
+            UTM_SOURCE: params.get("utm_source") || "",
+            UTM_MEDIUM: params.get("utm_medium") || "",
+            UTM_CAMPAIGN: params.get("utm_campaign") || ""
+          }
+        };
+
+        const res = await fetch(BREVO_BACKEND_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, attributes: { PLATFORM: platform, PRODUCT: "Lector" } })
+          body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error("Request failed");
+
+        // Treat duplicate contact as success to avoid blocking signups.
+        if (!res.ok && res.status !== 409) throw new Error("Request failed");
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
