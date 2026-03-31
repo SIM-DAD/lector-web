@@ -126,7 +126,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--accent);
+      color: var(--muted);
       margin-bottom: 1.5rem;
     }
     .hero h1 {
@@ -206,7 +206,10 @@
     /* ─── SECTIONS ───────────────────────────────────────────────── */
     .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
     .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
-    .section-dark  { padding: 6rem 0; background: #111111; color: #FFFFFF; }
+    .section-dark  { padding: 6rem 0; background: #0F0F0F; color: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      .section-dark { background: #1C1C1E; }
+    }
 
     .eyebrow {
       display: block;
@@ -217,7 +220,7 @@
       color: var(--accent);
       margin-bottom: 1rem;
     }
-    .section-dark .eyebrow { color: rgba(255,255,255,0.5); }
+    .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
 
     h2 {
       font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -234,7 +237,7 @@
       max-width: 58ch;
       line-height: 1.65;
     }
-    .section-dark .section-sub { color: rgba(255,255,255,0.55); }
+    .section-dark .section-sub { color: rgba(255,255,255,0.5); }
 
     /* ─── PROBLEM / SOLUTION ─────────────────────────────────────── */
     .prose-grid {
