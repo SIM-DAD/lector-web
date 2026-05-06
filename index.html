@@ -9,7 +9,10 @@
   <meta property="og:title" content="Lector — Write it. Hear it back.">
   <meta property="og:description" content="Write your draft. Hear it back word by word. The voice catches what the eye skips over.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://uselector.app/img/gr-cover.jpg">
+  <meta property="og:url" content="https://uselector.app">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://uselector.app/img/gr-cover.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -632,7 +635,7 @@
         <div class="feature-cell">
           <div class="feature-num">03</div>
           <h3>Your voice, built once</h3>
-          <p>Upload 3 to 12 seconds of audio. Lector builds a voice profile from it using Qwen3-TTS. After that, every read-aloud session uses your own voice &mdash; or a voice familiar to you. Built once, yours permanently.</p>
+          <p>Upload 5 to 15 seconds of audio. Lector builds a voice profile from it using F5-TTS. After that, every read-aloud session uses your own voice &mdash; or a voice familiar to you. Built once, yours permanently.</p>
         </div>
 
         <div class="feature-cell">
@@ -642,6 +645,51 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+
+  <!-- ENCRYPTED LOCAL VAULT -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Encrypted local vault</span>
+      <h2>Save to the library.<br>It&rsquo;s encrypted before it lands.</h2>
+      <p class="section-sub">
+        Local-first is half the privacy story. The other half is what sits on disk after you close the editor.
+        Lector&rsquo;s library writes documents to disk as age v1 ciphertext under a key only your OS knows about.
+        Plaintext export stays one click away when you want it.
+      </p>
+      <div class="features-grid">
+
+        <div class="feature-cell">
+          <div class="feature-num">01</div>
+          <h3>age v1, X25519, ChaCha20-Poly1305</h3>
+          <p>Saving to the library writes age-encrypted ciphertext to disk. The plaintext document never sits in the library directory, even briefly. A scratch directory mediates encrypt and decrypt and is swept on every Lector startup.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">02</div>
+          <h3>Your key, your OS keychain</h3>
+          <p>The X25519 secret key lives in the Windows Credential Manager, macOS Keychain, or Linux Secret Service. We never see it. We never sync it. Per-user storage, locked to your login.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">03</div>
+          <h3>Plaintext export is one click</h3>
+          <p>Save .md exports a portable plaintext copy on demand. You pick per document: encrypt for archival, plain for sharing or backup. No global toggle, no all-or-nothing.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">04</div>
+          <h3>Recover without Lector</h3>
+          <p>Resero is a free, MIT-licensed companion tool that decrypts any library file using your stored key. Use it on a fresh machine, after uninstall, or for bulk export. Available at <a href="https://useresero.app" style="color:var(--accent);text-decoration:underline;">useresero.app</a>.</p>
+        </div>
+
+      </div>
+      <p class="section-sub" style="margin-top:2rem;font-size:0.95rem;">
+        Methodology, threat model, and full source for the encryption module are in the substantiation paper at
+        <a href="https://doi.org/10.5281/zenodo.19963302" style="color:var(--accent);text-decoration:underline;">doi.org/10.5281/zenodo.19963302</a>.
+      </p>
     </div>
   </section>
 
@@ -677,7 +725,7 @@
           <li>Distraction-free Markdown editor</li>
           <li>12 built-in offline voices (Kokoro)</li>
           <li>Word-by-word highlighting</li>
-          <li>Voice cloning via Qwen3-TTS (GPU optional)</li>
+          <li>Voice cloning via F5-TTS (GPU recommended)</li>
           <li>100% local &mdash; no internet after install</li>
           <li>Windows &middot; Mac coming soon</li>
           <li>Lifetime updates for v1.x</li>
@@ -732,7 +780,7 @@
       <p class="oss-sub">Lector is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
       <div class="oss-grid">
         <a class="oss-item" href="https://github.com/hexgrad/kokoro" target="_blank" rel="noopener"><span class="oss-item-name">Kokoro TTS</span><span>Apache 2.0</span></a>
-        <a class="oss-item" href="https://huggingface.co/Qwen/Qwen3-TTS" target="_blank" rel="noopener"><span class="oss-item-name">Qwen3-TTS</span><span>Apache 2.0</span></a>
+        <a class="oss-item" href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener"><span class="oss-item-name">F5-TTS</span><span>MIT</span></a>
         <a class="oss-item" href="https://tauri.app" target="_blank" rel="noopener"><span class="oss-item-name">Tauri 2.0</span><span>MIT / Apache 2.0</span></a>
         <a class="oss-item" href="https://pytorch.org" target="_blank" rel="noopener"><span class="oss-item-name">PyTorch</span><span>BSD-3-Clause</span></a>
         <a class="oss-item" href="https://pytorch.org/audio" target="_blank" rel="noopener"><span class="oss-item-name">torchaudio</span><span>BSD-2-Clause</span></a>
@@ -757,8 +805,9 @@
       </div>
       <div class="footer-links">
         <a href="https://simdadllc.com">simdadllc.com</a>
-        <a href="mailto:hello@simdadllc.com">Contact</a>
+        <a href="mailto:lector@simdadllc.com">Contact</a>
         <a href="/eula.html">License agreement</a>
+        <a href="/privacy.html">Privacy policy</a>
       </div>
     </div>
     <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
@@ -837,7 +886,7 @@
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
-        errEl.textContent = "Something went wrong. Please try again or email hello@simdadllc.com.";
+        errEl.textContent = "Something went wrong. Please try again or email lector@simdadllc.com.";
         errEl.classList.add("visible");
         btn.disabled = false;
         btn.textContent = "Join the waitlist";
