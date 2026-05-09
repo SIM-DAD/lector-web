@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <!-- Lector ornament: a fountain pen nib, slightly tilted, with a slit and vent hole -->
+  <path d="M32 8 L20 48 L32 58 L44 48 Z" stroke-width="1.75"/>
+  <line x1="32" y1="22" x2="32" y2="58" stroke-width="1.25"/>
+  <circle cx="32" cy="34" r="2" fill="currentColor" stroke="none"/>
+  <line x1="14" y1="6" x2="22" y2="6" stroke-width="1" opacity="0.55"/>
+  <line x1="42" y1="6" x2="50" y2="6" stroke-width="1" opacity="0.55"/>
+</svg>
