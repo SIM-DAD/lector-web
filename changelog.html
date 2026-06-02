@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lector — Release Log</title>
+<meta name="description" content="Every major iteration of Lector, newest first. Versioned, not dated.">
+<link rel="icon" type="image/svg+xml" href="img/logo-1F2937.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#1F2937; --accent-2:#9A7B16; --gold:#B5912F; --text:#16181B; --muted:#5B6571;
+    --faint:#98A0A8; --bg:#FBFAF7; --surface:#F3F2EE; --line:#E4E2DC; --spine:#DAD7CE;
+    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --serif:'Newsreader','Iowan Old Style',Georgia,serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);color:var(--text);line-height:1.6;background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+  a{color:var(--accent);text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.75rem;}
+
+  /* header */
+  .top{padding:3.5rem 0 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+  .top img{height:28px;width:auto;}
+  .top .back{font-size:0.82rem;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:1px;}
+  .top .back:hover{color:var(--accent);border-color:var(--accent);}
+
+  .lede{padding:2.5rem 0 1.5rem;}
+  .lede h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,3.6rem);font-weight:500;letter-spacing:-0.025em;line-height:1.0;}
+  .lede h1 em{font-style:italic;color:var(--accent);}
+  .lede p{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:54ch;}
+  .lede .note{font-size:0.8rem;color:var(--faint);margin-top:0.5rem;}
+
+  /* timeline */
+  .log{position:relative;padding:1.5rem 0 4rem;margin-left:0.5rem;}
+  .log::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--spine);}
+  .rel{position:relative;padding:0 0 2.25rem 2.5rem;}
+  .rel::before{content:"";position:absolute;left:0;top:0.35rem;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--spine);}
+  .rel.major::before{border-color:var(--gold);box-shadow:0 0 0 4px rgba(181,145,47,0.12);}
+  .rel.latest::before{background:var(--gold);border-color:var(--gold);}
+
+  .ver{display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;}
+  .ver .num{font-family:var(--serif);font-size:1.5rem;font-weight:600;letter-spacing:-0.01em;color:var(--accent);line-height:1;}
+  .rel.major .ver .num{font-size:1.85rem;}
+  .ver .name{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.13em;color:var(--gold);}
+  .ver .tag{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#fff;background:var(--gold);padding:0.18rem 0.5rem;border-radius:100px;}
+
+  .summary{font-family:var(--serif);font-size:1.0625rem;color:var(--text);margin-top:0.6rem;line-height:1.55;max-width:56ch;}
+  .rel.major .summary{font-size:1.15rem;}
+  ul.hi{list-style:none;margin-top:0.9rem;display:grid;gap:0.4rem;max-width:60ch;}
+  ul.hi li{position:relative;padding-left:1.1rem;font-size:0.9rem;color:var(--muted);line-height:1.55;}
+  ul.hi li::before{content:"";position:absolute;left:0;top:0.6rem;width:5px;height:5px;border-radius:50%;background:var(--gold);}
+
+  .foot{border-top:1px solid var(--line);padding:2rem 0 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .foot .brand{font-weight:800;letter-spacing:-0.02em;}
+  .foot .links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+  .foot a{font-size:0.8125rem;color:var(--muted);}
+  .foot a:hover{color:var(--text);}
+
+  @media (max-width:560px){ .rel{padding-left:2rem;} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a href="/"><img src="img/wordmark-1F2937.svg" alt="Lector"></a>
+      <a href="/" class="back">&larr; Back to Lector</a>
+    </header>
+
+    <section class="lede">
+      <h1>Release <em>log</em>.</h1>
+      <p>Every major iteration of Lector, newest first. We version what we ship and keep building within the version you own.</p>
+      <p class="note">Versioned, not dated. The number is the reference.</p>
+    </section>
+
+    <div class="log">
+
+      <article class="rel latest">
+        <div class="ver"><span class="num">1.0.2</span><span class="tag">Latest</span></div>
+        <p class="summary">Read mode renders Markdown correctly in the packaged app.</p>
+        <ul class="hi"><li>Fixed an asset-path bug that left raw <code>**</code> and <code>##</code> markers showing instead of formatted text.</li></ul>
+      </article>
+
+      <article class="rel">
+        <div class="ver"><span class="num">1.0.1</span></div>
+        <p class="summary">Voice cloning no longer blocks startup.</p>
+        <ul class="hi"><li>The voice-cloning engine loads lazily in the background, so the editor and built-in voices are usable immediately instead of waiting behind a load screen.</li></ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">1.0.0</span><span class="name">First public release</span></div>
+        <p class="summary">The complete editor: read your draft back to you, in your own voice if you want, with everything kept on your machine.</p>
+        <ul class="hi">
+          <li>Distraction-free Markdown editor with read-aloud in twelve built-in voices.</li>
+          <li>One-shot voice cloning from a short reference clip.</li>
+          <li>Age-encrypted document vault keyed to the operating-system keychain.</li>
+          <li>Position memory per document, .docx import, dark mode, keyboard-driven playback.</li>
+          <li>Standalone Windows installer with an embedded runtime and a bundled speech model for a fast first launch.</li>
+        </ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.5.0</span><span class="name">Release hardening</span></div>
+        <p class="summary">Made it solid enough to ship.</p>
+        <ul class="hi">
+          <li>Isolated the speech and cloning engines into their own worker processes for stability.</li>
+          <li>Bundled the built-in speech model so the first launch is fast on a clean machine.</li>
+          <li>Added a local-first crash and error-reporting flow that sends nothing automatically.</li>
+        </ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.4.0</span><span class="name">Packaging pivot</span></div>
+        <p class="summary">Moved to a real Windows application.</p>
+        <ul class="hi"><li>Adopted a Tauri application shell with an embedded Python runtime and a proper installer, replacing the earlier bundling approach.</li></ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.3.0</span><span class="name">Local-first backend</span></div>
+        <p class="summary">Everything moved onto your machine.</p>
+        <ul class="hi"><li>Encrypted document library, license management, and a local backend that runs entirely offline.</li></ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.2.0</span><span class="name">The listen-edit loop</span></div>
+        <p class="summary">The core idea took shape.</p>
+        <ul class="hi"><li>Added the Reader view and the listen-while-you-edit workflow, with backstep-on-pause and position memory.</li></ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.1.0</span><span class="name">First build</span></div>
+        <p class="summary">Where it began.</p>
+        <ul class="hi"><li>Initial Markdown editor with local read-aloud. Originally released as ScriVocalis, later renamed to Lector.</li></ul>
+      </article>
+
+    </div>
+
+    <footer class="foot">
+      <div class="brand">Lector</div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="https://simdadllc.com/commitment.html">Our commitment</a>
+        <a href="https://simdadllc.com">SIM DAD LLC</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
