@@ -3,55 +3,1201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lector — Coming August 2026</title>
-  <meta name="description" content="Lector — write it, hear it back. Coming August 2026 from SIM DAD LLC.">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#1F2937">
+  <title>Lector — Write it. Hear it back.</title>
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <meta name="description" content="Lector is a distraction-free writing environment with sentence-level read-aloud and voice cloning. Completely local — no cloud, no subscription.">
+  <meta property="og:title" content="Lector — Write it. Hear it back.">
+  <meta property="og:description" content="Write your draft. Hear it back word by word. The voice catches what the eye skips over.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://uselector.app/img/social-share.png">
+  <meta property="og:url" content="https://uselector.app">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lector. Write it. Hear it back.">
+  <meta name="twitter:description" content="Write your draft. Hear it back word by word. The voice catches what the eye skips over.">
+  <meta name="twitter:image" content="https://uselector.app/img/social-share.png">
   <link rel="canonical" href="https://uselector.app/">
+  <meta name="author" content="SIM DAD LLC">
+  <meta name="theme-color" content="#1F2937">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Lector",
+    "description": "Distraction-free Markdown writing environment with sentence-level read-aloud and voice cloning. Runs entirely on your machine. No cloud, no subscription.",
+    "url": "https://uselector.app",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Windows 10, Windows 11",
+    "image": "https://uselector.app/img/social-share.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SIM DAD LLC",
+      "url": "https://simdadllc.com"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400&display=swap" rel="stylesheet">
+
   <style>
+    /* ─── TOKENS ─────────────────────────────────────────────────── */
     :root {
-      --accent: #1F2937; --accent-h: #0F172A;
-      --text: #0F0F0F; --muted: #6B7280; --bg: #FFFFFF; --border: #E4E4E7; --btn-fg: #FFFFFF;
-      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+      --accent:    #1F2937;
+      --accent-h:  #0F172A;
+      --text:      #0F0F0F;
+      --muted:     #6B7280;
+      --bg:        #FFFFFF;
+      --surface:   #F7F7F8;
+      --border:    #E4E4E7;
+      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Newsreader', 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
+      --max-w:     1080px;
+      --radius:    8px;
     }
+
     @media (prefers-color-scheme: dark) {
-      :root { --text: #F4F4F5; --muted: #A1A1AA; --bg: #0F172A; --border: #1F2937; --accent: #CBD5E1; --accent-h: #E2E8F0; --btn-fg: #0B0B0C; }
+      :root {
+        --text:    #F4F4F5;
+        --muted:   #A1A1AA;
+        --bg:      #09090B;
+        --surface: #111113;
+        --border:  #27272A;
+        --accent:  #F2B833;
+        --accent-h: #E69F00;
+      }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body { font-family: var(--font); color: var(--text); background: var(--bg); display: flex; flex-direction: column; min-height: 100%; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; max-width: 620px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem; }
-    .mark { height: 46px; width: auto; margin-bottom: 1.5rem; }
-    .kicker { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-    .kicker a { color: var(--muted); text-decoration: none; }
-    .kicker a:hover { color: var(--accent); }
-    h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.75rem, 9vw, 4.5rem); letter-spacing: -0.01em; line-height: 1.04; color: var(--accent); }
-    .tagline { font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: clamp(1.15rem, 3vw, 1.5rem); margin-top: 0.5rem; color: var(--text); }
-    .status { margin-top: 1.75rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.02em; color: var(--accent); }
-    .lede { margin-top: 0.5rem; font-size: 1.0625rem; color: var(--muted); max-width: 48ch; }
-    .cta { margin-top: 2rem; }
-    .btn { display: inline-block; background: var(--accent); color: var(--btn-fg); font-weight: 600; font-size: 1rem; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; transition: background 120ms ease; }
-    .btn:hover, .btn:focus { background: var(--accent-h); }
-    footer { max-width: 620px; width: 100%; margin: 0 auto; padding: 1.5rem; font-size: 0.8125rem; color: var(--muted); border-top: 1px solid var(--border); }
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
+
+    /* ─── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-repeat: repeat;
+    }
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── PAGE-LOAD REVEAL ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
+    }
+    .hero-eyebrow { animation-delay: 0.10s; }
+    .hero h1     { animation-delay: 0.22s; }
+    .hero-sub    { animation-delay: 0.44s; }
+    .hero-actions{ animation-delay: 0.60s; }
+    .hero-meta   { animation-delay: 0.74s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+        animation: none;
+      }
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav.scrolled {
+      background: var(--bg);
+      border-color: var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; }
+    .nav-wordmark { height: 36px; width: auto; display: block; }
+
+    /* ─── BUTTONS ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary   { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
+    .btn-ghost     { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
+    .btn-ghost-white:hover { border-color: #fff; }
+    .btn-lg { padding: 0.8rem 1.75rem; font-size: 1rem; }
+
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      padding: 7rem 0 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6.5vw, 5.25rem);
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      max-width: 14ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero-accent {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 500;
+    }
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 52ch;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .hero-meta {
+      margin-top: 1.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .hero-meta span { margin: 0 0.4rem; opacity: 0.4; }
+
+    /* ─── STATS STRIP ────────────────────────────────────────────── */
+    .stats-strip {
+      border-bottom: 1px solid var(--border);
+      padding: 2.75rem 0;
+    }
+    .stats-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* ─── DEMO ───────────────────────────────────────────────────── */
+    .demo-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .demo-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .demo-video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    /* ─── SECTIONS ───────────────────────────────────────────────── */
+    .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .section-dark  { padding: 6rem 0; background: #0F0F0F; color: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      .section-dark { background: #1C1C1E; }
+    }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.7vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    h2 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .section-dark h2 { color: #fff; }
+    .section-dark h2 em { color: var(--accent); }
+
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.65;
+    }
+    .section-dark .section-sub { color: rgba(255,255,255,0.5); }
+
+    /* ─── PROBLEM / SOLUTION ─────────────────────────────────────── */
+    .prose-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+    .prose-col p {
+      font-size: 0.9875rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .prose-col p:last-child { margin-bottom: 0; }
+
+    /* ─── FEATURES ───────────────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 3.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .feature-cell {
+      padding: 2rem 2rem 2rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-cell:nth-child(even) { border-right: none; }
+    .feature-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .feature-cell h3 {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .feature-cell p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .feature-num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ─── DARK PULLQUOTE ─────────────────────────────────────────── */
+    .pullquote {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: #fff;
+      max-width: 28ch;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+    .pullquote em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* ─── PRICING ────────────────────────────────────────────────── */
+    .pricing-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      max-width: 420px;
+    }
+    .price-tag {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 1rem 0 0.35rem;
+    }
+    .price-tag sup { font-size: 1.5rem; vertical-align: super; }
+    .price-note {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .price-features li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      padding: 0.5rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* ─── WAITLIST ───────────────────────────────────────────────── */
+    .waitlist-wrap {
+      max-width: 520px;
+    }
+    .wl-form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .wl-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .wl-field label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .wl-field label span { font-weight: 400; color: var(--muted); }
+    .wl-field input[type="email"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      background: var(--bg);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.15s;
+    }
+    .wl-field input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .wl-field input::placeholder { color: var(--muted); }
+    .radio-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .radio-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .radio-row input[type="radio"] { accent-color: var(--accent); }
+    .wl-submit {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .wl-submit:hover:not(:disabled) { background: var(--accent-h); }
+    .wl-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .wl-fine {
+      font-size: 0.775rem;
+      color: var(--muted);
+    }
+    .wl-success {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .wl-success.visible { display: block; }
+    .wl-success h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .wl-success p  { font-size: 0.875rem; color: var(--muted); }
+    .wl-error {
+      display: none;
+      font-size: 0.8125rem;
+      color: #dc2626;
+    }
+    .wl-error.visible { display: block; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    .footer {
+      padding: 3rem 0 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-brand {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .footer-sub {
+      font-size: 0.775rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      max-width: var(--max-w);
+      margin: 1.5rem auto 0;
+      padding: 1.5rem 2rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ─── FOCUS ──────────────────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero       { padding: 5.5rem 0 4rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .prose-grid  { grid-template-columns: 1fr; gap: 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-cell { border-right: none; }
+      .feature-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .feature-cell:last-child { border-bottom: none; }
+      .section     { padding: 4.5rem 0; }
+      .section-alt { padding: 4.5rem 0; }
+      .section-dark { padding: 4.5rem 0; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1     { font-size: 2.6rem; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    }
+    /* ═══════════════════════════════════════════════════════════ */
+    /*  MANUSCRIPT LAYOUT  —  the page is a piece of writing       */
+    /* ═══════════════════════════════════════════════════════════ */
+
+    .manuscript {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      color: var(--text);
+    }
+    .manuscript p {
+      font-size: 1.1875rem;
+      line-height: 1.7;
+      margin: 0 0 1.4rem;
+      color: var(--text);
+    }
+    .manuscript em { font-style: italic; }
+
+    /* ── issue marker (top) ── */
+    .issue-marker {
+      max-width: 720px;
+      margin: 4rem auto 3rem;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: var(--font);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .issue-marker::before,
+    .issue-marker::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── opening (replaces hero) ── */
+    .opening {
+      max-width: 720px;
+      margin: 0 auto 3.5rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .opening h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin: 0;
+      color: var(--text);
+    }
+    .opening h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .opening .byline {
+      font-family: var(--font);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+
+    /* ── lede with drop cap ── */
+    .lede {
+      font-size: 1.3125rem !important;
+      line-height: 1.55 !important;
+      margin-bottom: 2rem !important;
+    }
+    .lede::first-letter {
+      font-family: var(--font-display);
+      float: left;
+      font-size: 5.6em;
+      line-height: 0.85;
+      padding: 0.05em 0.12em 0 0;
+      font-weight: 600;
+      color: var(--accent);
+      font-style: italic;
+    }
+    .lede-opener {
+      font-variant: small-caps;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* ── section markers (Roman numerals) ── */
+    .section-marker {
+      max-width: 720px;
+      margin: 4.5rem auto 1.5rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .section-marker .numeral {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      display: inline-block;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .section-marker .numeral::before,
+    .section-marker .numeral::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 3rem;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-marker .numeral::before { right: 100%; }
+    .section-marker .numeral::after  { left: 100%; }
+
+    .section-marker .heading {
+      font-family: var(--font-display);
+      font-size: 1.875rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-top: 0.75rem;
+      color: var(--text);
+    }
+    .section-marker .heading em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── pull quote ── */
+    .pull-quote {
+      max-width: 720px;
+      margin: 3.5rem auto;
+      padding: 2rem 2rem 2rem 3.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      position: relative;
+    }
+    .pull-quote::before {
+      content: "“";
+      position: absolute;
+      left: 1.2rem;
+      top: 0.5rem;
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.35;
+      line-height: 1;
+      font-family: var(--font-display);
+    }
+
+    /* ── figure ── */
+    .figure {
+      max-width: 920px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    .figure-frame {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .figure-frame video,
+    .figure-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .figure-caption {
+      font-family: var(--font);
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.75rem;
+      padding-left: 0.25rem;
+      max-width: 56ch;
+    }
+    .figure-caption b {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+
+    /* ── article-end ornament + signature ── */
+    .ornament {
+      max-width: 720px;
+      margin: 3.5rem auto 1.5rem;
+      padding: 0 2rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    .signature {
+      max-width: 720px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      font-family: var(--font);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .signature-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: inline-block; vertical-align: middle; margin-right: 0.85rem;
+      border: 1px solid var(--border); object-fit: cover;
+    }
+
+    /* ── inline numerical anchors in the prose ── */
+    .manuscript strong {
+      font-weight: 600;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    /* ── quiet pricing colophon ── */
+    .colophon {
+      max-width: 720px;
+      margin: 6rem auto 4rem;
+      padding: 3rem 2rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .colophon-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .colophon-label {
+      font-family: var(--font);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .colophon-price {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .colophon-price sup { font-size: 1.2rem; vertical-align: super; padding-right: 0.1em; }
+    .colophon p {
+      font-family: var(--font);
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── waitlist as quiet end-block ── */
+    .end-waitlist {
+      max-width: 720px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+    .end-waitlist .heading {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .end-waitlist .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+    /* ── responsive ── */
+    @media (max-width: 720px) {
+      .opening h1 { font-size: clamp(2.6rem, 12vw, 4rem); }
+      .lede::first-letter { font-size: 4em; }
+      .pull-quote { padding: 1.5rem 1.5rem 1.5rem 2.5rem; }
+      .pull-quote::before { left: 0.8rem; top: 0.4rem; font-size: 3rem; }
+      .section-marker .numeral::before,
+      .section-marker .numeral::after { width: 1.5rem; }
+    }
+
+    /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
+    .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
+    .oss-sub { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; max-width: 64ch; }
+    .oss-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .oss-item {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.25rem 0.7rem; border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.775rem; color: var(--muted); text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .oss-item:hover { color: var(--text); border-color: var(--muted); }
+    .oss-item-name { font-weight: 600; color: var(--text); }
   </style>
 </head>
 <body>
-  <main>
-    <img class="mark" src="img/logo.svg" alt="Lector logo">
-    <p class="kicker"><a href="https://simdadllc.com">SIM DAD LLC</a></p>
-    <h1>Lector</h1>
-    <p class="tagline">Write it. Hear it back.</p>
-    <p class="status">Coming August 2026</p>
-    <p class="lede">We've taken Lector offline while we rebuild it as part of one local-first suite. Questions in the meantime? We'd love to hear from you.</p>
-    <p class="cta"><a class="btn" href="mailto:lector@simdadllc.com?subject=Lector%20question">Email us</a></p>
-  </main>
-  <footer>© 2026 SIM DAD LLC · <a href="mailto:lector@simdadllc.com">lector@simdadllc.com</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></footer>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <picture>
+          <source srcset="img/wordmark-C9B976.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-1F2937.svg" alt="Lector" class="nav-wordmark">
+        </picture>
+      </a>
+      <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
+    </div>
+  </nav>
+
+
+  <!-- ISSUE MARKER -->
+  <div class="issue-marker">Lector &middot; Vol. I, No. 1 &middot; May 2026</div>
+
+
+  <!-- OPENING -->
+  <header class="opening">
+    <h1>Write&nbsp;it.<br><em>Hear</em>&nbsp;it&nbsp;back.</h1>
+    <div class="byline">A local-first writing tool &middot; coming soon &middot; $29 one-time</div>
+  </header>
+
+
+  <!-- LEDE + DROP CAP -->
+  <article class="manuscript">
+    <p class="lede"><span class="lede-opener">Lector is a writing environment</span> with read-aloud built in. Write your draft, then hear it sentence by sentence. The voice catches what the eye skips over. Completely local. No cloud. No subscription.</p>
+
+    <p>Every writer knows the feeling. You read a paragraph three times and it looks fine. Then you hear it read aloud and immediately catch the sentence that runs too long, the word that appears twice in four lines, the transition that doesn&rsquo;t quite land. That is not a grammar problem. It is a prose problem. The eye misses it because the brain already knows what you meant to say.</p>
+
+    <p>Hearing your writing is different. The voice does not know what you intended. It reads what is actually there.</p>
+  </article>
+
+
+
+
+  <!-- SECTION I — WHAT IT DOES -->
+  <div class="section-marker">
+    <span class="numeral">I</span>
+    <div class="heading">A second pass, through a <em>different sense</em>.</div>
+  </div>
+
+  <article class="manuscript" id="problem">
+    <p>Lector puts read-aloud inside the writing environment itself. No copying text into another application. No browser tabs. No switching tools mid-edit. You write, you listen, you revise, all in the same place.</p>
+
+    <p>The editor is distraction-free. WYSIWYG mode renders formatting as you type. Raw Markdown is available for those who want it. You toggle between them without losing your place. Nothing else on screen.</p>
+
+    <p>Read-aloud has <strong>twelve</strong> built-in offline voices via Kokoro, and it pairs every sentence with word-by-word highlighting so the playhead is always visible. Click any word to jump there. The mechanic is mundane and the effect is not: most writers who use read-aloud tools never go back to editing in silence.</p>
+  </article>
+
+
+  <!-- PULL QUOTE 1 -->
+  <blockquote class="pull-quote">The voice does not know what you intended. It reads what is actually there.</blockquote>
+
+
+  <!-- SECTION II — VOICE CLONING -->
+  <div class="section-marker">
+    <span class="numeral">II</span>
+    <div class="heading">Your <em>own voice</em>, built once.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>Upload five to fifteen seconds of audio and Lector builds a voice profile from it using F5-TTS. After that, every read-aloud session can use your own voice, or a voice familiar to you. The profile is built once and lives on your computer permanently.</p>
+
+    <p>Voice cloning runs on your GPU. There is no upload, no remote API, no third-party service. The reference clip is processed locally, the model runs locally, and the resulting profile is stored locally. If you uninstall Lector, the profile goes with it.</p>
+  </article>
+
+
+  <!-- SECTION III — ENCRYPTED LIBRARY -->
+  <div class="section-marker">
+    <span class="numeral">III</span>
+    <div class="heading">Save to the library. It is <em>encrypted</em> before it lands.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. Lector&rsquo;s library writes documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about. Plaintext export stays one click away when you want it.</p>
+
+    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, the <strong>macOS Keychain</strong>, or the <strong>Linux Secret Service</strong>, depending on platform. We never see it. We never sync it. Per-user storage, locked to your login.</p>
+
+    <p>You can export plaintext on demand: per document, not as a global toggle. Encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is a published path. Resero is a free, MIT-licensed companion tool that decrypts any library file using your stored key. Use it on a fresh machine, after uninstall, or for bulk export. It lives at <a href="https://useresero.app">useresero.app</a>.</p>
+
+    <p>Methodology, threat model, and full source for the encryption module are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19963302">doi.org/10.5281/zenodo.19963302</a>.</p>
+  </article>
+
+
+  <!-- PULL QUOTE 2 -->
+  <blockquote class="pull-quote">You already know how to edit. Lector gives you a second pass through a different sense.</blockquote>
+
+
+  <!-- SECTION IV — END NOTE -->
+  <div class="section-marker">
+    <span class="numeral">IV</span>
+    <div class="heading"><em>Simple.</em> One-time. Yours.</div>
+  </div>
+
+  <article class="manuscript">
+    <p>Lector is currently in development. Join the waitlist below and we will notify you when it ships. The launch price is <strong>$29</strong>, one-time, for up to three devices. No subscription. No telemetry. No account required. Lifetime updates for v1.x.</p>
+  </article>
+
+
+  <!-- ORNAMENT + SIGNATURE -->
+  <div class="ornament" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.4em;height:2.4em;display:inline-block;vertical-align:middle;">
+      <path d="M32 8 L20 48 L32 58 L44 48 Z" stroke-width="1.75"/>
+      <line x1="32" y1="22" x2="32" y2="58" stroke-width="1.25"/>
+      <circle cx="32" cy="34" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+  <div class="signature">
+    <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar" loading="lazy" decoding="async" width="96" height="96">
+    Lector Editorial &middot; SIM DAD LLC &middot; May 2026
+  </div>
+
+
+  <!-- COLOPHON: PRICING -->
+  <section class="colophon" id="pricing">
+    <div class="colophon-row">
+      <span class="colophon-label">Personal license</span>
+      <div class="colophon-price"><sup>$</sup>29</div>
+    </div>
+    <p>One-time &middot; up to 3 devices &middot; no subscription &middot; lifetime updates for v1.x</p>
+    <p>Distraction-free Markdown editor &middot; 12 built-in offline voices (Kokoro) &middot; word-by-word highlighting &middot; voice cloning via F5-TTS (GPU recommended) &middot; 100% local, no internet after install &middot; Windows now, Mac coming soon.</p>
+  </section>
+
+
+  <!-- WAITLIST (end-block, quiet) -->
+  <section class="end-waitlist" id="waitlist">
+    <div class="heading">Be <em>first</em>.</div>
+    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">Join the waitlist and we will notify you the moment Lector is ready. No drip campaigns. No newsletters. One email, when it is ready.</p>
+
+    <div class="wl-success" id="wl-success" role="status">
+      <h3>You&rsquo;re on the list.</h3>
+      <p>We&rsquo;ll be in touch when Lector launches.</p>
+    </div>
+
+    <form class="wl-form" id="wl-form" novalidate>
+      <div class="wl-field">
+        <label for="wl-email">Email address</label>
+        <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="wl-field">
+        <label>Platform preference <span>(optional)</span></label>
+        <div class="radio-row">
+          <label><input type="radio" name="platform" value="windows" checked> Windows</label>
+          <label><input type="radio" name="platform" value="mac"> Mac</label>
+        </div>
+      </div>
+      <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
+      <p class="wl-error" id="wl-error" role="alert"></p>
+      <p class="wl-fine">No spam. Unsubscribe anytime.</p>
+    </form>
+  </section>
+
+
+  <!-- OPEN SOURCE ATTRIBUTION -->
+  <div class="oss-section">
+    <div class="container">
+      <p class="oss-heading">Open source software</p>
+      <p class="oss-sub">Lector is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
+      <div class="oss-grid">
+        <a class="oss-item" href="https://github.com/hexgrad/kokoro" target="_blank" rel="noopener"><span class="oss-item-name">Kokoro TTS</span><span>Apache 2.0</span></a>
+        <a class="oss-item" href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener"><span class="oss-item-name">F5-TTS</span><span>MIT</span></a>
+        <a class="oss-item" href="https://tauri.app" target="_blank" rel="noopener"><span class="oss-item-name">Tauri 2.0</span><span>MIT / Apache 2.0</span></a>
+        <a class="oss-item" href="https://pytorch.org" target="_blank" rel="noopener"><span class="oss-item-name">PyTorch</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://pytorch.org/audio" target="_blank" rel="noopener"><span class="oss-item-name">torchaudio</span><span>BSD-2-Clause</span></a>
+        <a class="oss-item" href="https://fastapi.tiangolo.com" target="_blank" rel="noopener"><span class="oss-item-name">FastAPI</span><span>MIT</span></a>
+        <a class="oss-item" href="https://www.uvicorn.org" target="_blank" rel="noopener"><span class="oss-item-name">uvicorn</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener"><span class="oss-item-name">faster-whisper</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/python-openxmlformats/python-docx" target="_blank" rel="noopener"><span class="oss-item-name">python-docx</span><span>MIT</span></a>
+        <a class="oss-item" href="https://python-markdown.github.io" target="_blank" rel="noopener"><span class="oss-item-name">Markdown</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://github.com/bastibe/python-soundfile" target="_blank" rel="noopener"><span class="oss-item-name">soundfile</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://numpy.org" target="_blank" rel="noopener"><span class="oss-item-name">NumPy</span><span>BSD-3-Clause</span></a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Lector</div>
+        <div class="footer-sub">A product of SIM DAD LLC</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://simdadllc.com">simdadllc.com</a>
+        <a href="mailto:lector@simdadllc.com">Contact</a>
+        <a href="/changelog.html">Release log</a>
+        <a href="https://simdadllc.com/commitment.html">Our commitment</a>
+        <a href="/eula.html">License agreement</a>
+        <a href="/privacy.html">Privacy policy</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
+  </footer>
+
+
+  <script>
+    /* ── BREVO BACKEND ENDPOINT ─────────────────────────────────────
+       Set this to your own backend endpoint that calls Brevo Contacts API.
+       Do not expose your Brevo API key in frontend code.
+       Leave empty to simulate success locally during development.
+    ─────────────────────────────────────────────────────────────── */
+    const BREVO_BACKEND_ENDPOINT = "https://lector-waitlist.ap-493.workers.dev";
+
+    /* ── STICKY NAV ─────────────────────────────────────────────── */
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 48);
+    }, { passive: true });
+
+    /* ── WAITLIST FORM ──────────────────────────────────────────── */
+    document.getElementById("wl-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form    = e.target;
+      const btn     = document.getElementById("wl-submit");
+      const success = document.getElementById("wl-success");
+      const errEl   = document.getElementById("wl-error");
+
+      const email    = form.email.value.trim();
+      const platform = [...form.querySelectorAll('[name="platform"]')].find(r => r.checked)?.value ?? "";
+
+      errEl.textContent = "";
+      errEl.classList.remove("visible");
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = "Please enter a valid email address.";
+        errEl.classList.add("visible");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Joining…";
+
+      if (!BREVO_BACKEND_ENDPOINT) {
+        // Dev mode: simulate success
+        await new Promise(r => setTimeout(r, 600));
+        form.style.display = "none";
+        success.classList.add("visible");
+        return;
+      }
+
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const payload = {
+          email,
+          listName: "lector_waitlist",
+          attributes: {
+            PLATFORM: platform,
+            PRODUCT: "Lector",
+            SOURCE: "lector-web",
+            PAGE_URL: window.location.href,
+            UTM_SOURCE: params.get("utm_source") || "",
+            UTM_MEDIUM: params.get("utm_medium") || "",
+            UTM_CAMPAIGN: params.get("utm_campaign") || ""
+          }
+        };
+
+        const res = await fetch(BREVO_BACKEND_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        // Treat duplicate contact as success to avoid blocking signups.
+        if (!res.ok && res.status !== 409) throw new Error("Request failed");
+        form.style.display = "none";
+        success.classList.add("visible");
+      } catch {
+        errEl.textContent = "Something went wrong. Please try again or email lector@simdadllc.com.";
+        errEl.classList.add("visible");
+        btn.disabled = false;
+        btn.textContent = "Join the waitlist";
+      }
+    });
+  </script>
+
+  <!-- Cookie Consent + GA4 -->
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1C1C1E;color:#F4F4F5;padding:16px 24px;gap:16px;font-family:inherit;font-size:14px;border-top:1px solid #333;align-items:center;justify-content:space-between;">
+    <span>This site uses analytics cookies to understand how visitors use it.</span>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <button id="cookie-decline" style="padding:8px 16px;border:1px solid #555;background:transparent;color:#F4F4F5;border-radius:6px;cursor:pointer;font-size:14px;font-family:inherit;">Decline</button>
+      <button id="cookie-accept" style="padding:8px 16px;border:none;background:#1F2937;color:#fff;border-radius:6px;cursor:pointer;font-size:14px;font-family:inherit;">Accept</button>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var GA_ID = 'G-MVV710W59L';
+      function loadGA() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+      }
+      var banner = document.getElementById('cookie-banner');
+      var consent = localStorage.getItem('ga_consent');
+      if (consent === 'accepted') { loadGA(); }
+      else if (!consent) { banner.style.display = 'flex'; }
+      document.getElementById('cookie-accept').addEventListener('click', function() {
+        localStorage.setItem('ga_consent', 'accepted');
+        banner.style.display = 'none';
+        loadGA();
+      });
+      document.getElementById('cookie-decline').addEventListener('click', function() {
+        localStorage.setItem('ga_consent', 'declined');
+        banner.style.display = 'none';
+      });
+    })();
+  </script>
 </body>
 </html>

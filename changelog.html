@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --accent:#1F2937; --accent-2:#9A7B16; --gold:#B5912F; --text:#16181B; --muted:#5B6571;
+    --accent:#1F2937; --accent-2:#9A7B16; --gold:#E69F00; --text:#16181B; --muted:#5B6571;
     --faint:#98A0A8; --bg:#FBFAF7; --surface:#F3F2EE; --line:#E4E2DC; --spine:#DAD7CE;
     --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
     --serif:'Newsreader','Iowan Old Style',Georgia,serif;
@@ -81,8 +81,21 @@
 
     <div class="log">
 
+      <article class="rel latest major">
+        <div class="ver"><span class="num">2.0</span><span class="name">The rebuild — write it, hear it back</span><span class="tag">In development</span></div>
+        <p class="summary">Lector is being rebuilt around one idea: you catch what's wrong with your writing when you hear it. Coming soon.</p>
+        <ul class="hi">
+          <li>Read-aloud with word-level highlighting that skips code, URLs, and table syntax — it reads your prose, not your markup.</li>
+          <li>Click any sentence to resume from it; editorial marks (FIX / GOOD / QUESTION / REWRITE / CUT) that survive edits and travel with the document.</li>
+          <li>One document, two honest views: raw source and formatted text, always in sync.</li>
+          <li>Light and dark themes that follow your system; a full keyboard and screen-reader pass.</li>
+          <li>Natural offline neural voices in progress — no cloud, no subscription, your text never leaves the machine.</li>
+        </ul>
+      </article>
+
+
       <article class="rel latest">
-        <div class="ver"><span class="num">1.0.2</span><span class="tag">Latest</span></div>
+        <div class="ver"><span class="num">1.0.2</span></div>
         <p class="summary">Read mode renders Markdown correctly in the packaged app.</p>
         <ul class="hi"><li>Fixed an asset-path bug that left raw <code>**</code> and <code>##</code> markers showing instead of formatted text.</li></ul>
       </article>
