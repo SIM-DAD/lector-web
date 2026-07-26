@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lector — Write it. Hear it back.</title>
+  <title>Lector: Write it. Hear it back.</title>
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
-  <meta name="description" content="Lector is a distraction-free writing environment with sentence-level read-aloud and voice cloning. Completely local — no cloud, no subscription.">
-  <meta property="og:title" content="Lector — Write it. Hear it back.">
+  <meta name="description" content="Lector is a distraction-free writing environment with sentence-level read-aloud. Completely local: no cloud, no subscription.">
+  <meta property="og:title" content="Lector: Write it. Hear it back.">
   <meta property="og:description" content="Write your draft. Hear it back word by word. The voice catches what the eye skips over.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://uselector.app/img/social-share.png">
@@ -23,10 +23,10 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Lector",
-    "description": "Distraction-free Markdown writing environment with sentence-level read-aloud and voice cloning. Runs entirely on your machine. No cloud, no subscription.",
+    "description": "Distraction-free Markdown writing environment with sentence-level read-aloud. Runs entirely on your machine. No cloud, no subscription.",
     "url": "https://uselector.app",
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Windows 10, Windows 11",
+    "operatingSystem": "Windows 10, Windows 11, macOS",
     "image": "https://uselector.app/img/social-share.png",
     "publisher": {
       "@type": "Organization",
@@ -932,7 +932,7 @@
 
     <p>The editor is distraction-free. WYSIWYG mode renders formatting as you type. Raw Markdown is available for those who want it. You toggle between them without losing your place. Nothing else on screen.</p>
 
-    <p>Read-aloud has <strong>twelve</strong> built-in offline voices via Kokoro, and it pairs every sentence with word-by-word highlighting so the playhead is always visible. Click any word to jump there. The mechanic is mundane and the effect is not: most writers who use read-aloud tools never go back to editing in silence.</p>
+    <p>Read-aloud pairs every sentence with word-by-word highlighting so the playhead is always visible. It starts with your system&rsquo;s built-in voices, and a set of offline neural voices (Kokoro) follows as a free update. Click any word to jump there. The mechanic is mundane and the effect is not: most writers who use read-aloud tools never go back to editing in silence.</p>
   </article>
 
 
@@ -947,9 +947,9 @@
   </div>
 
   <article class="manuscript">
-    <p>Upload five to fifteen seconds of audio and Lector builds a voice profile from it using F5-TTS. After that, every read-aloud session can use your own voice, or a voice familiar to you. The profile is built once and lives on your computer permanently.</p>
+    <p>Voice cloning is on the Lector roadmap: record five to fifteen seconds of audio and Lector will build a voice profile from it, so read-aloud can use your own voice, or a voice familiar to you. The profile will be built once and live on your computer permanently.</p>
 
-    <p>Voice cloning runs on your GPU. There is no upload, no remote API, no third-party service. The reference clip is processed locally, the model runs locally, and the resulting profile is stored locally. If you uninstall Lector, the profile goes with it.</p>
+    <p>Cloning will run on your machine, with no upload, no remote API, and no third-party service. The reference clip is processed locally, the model runs locally, and the resulting profile is stored locally. If you uninstall Lector, the profile goes with it.</p>
   </article>
 
 
@@ -964,7 +964,7 @@
 
     <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, the <strong>macOS Keychain</strong>, or the <strong>Linux Secret Service</strong>, depending on platform. We never see it. We never sync it. Per-user storage, locked to your login.</p>
 
-    <p>You can export plaintext on demand: per document, not as a global toggle. Encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is a published path. Resero is a free, MIT-licensed companion tool that decrypts any library file using your stored key. Use it on a fresh machine, after uninstall, or for bulk export. It lives at <a href="https://useresero.app">useresero.app</a>.</p>
+    <p>You can export plaintext on demand: per document, not as a global toggle. Encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is a published path. A free, MIT-licensed companion decrypter opens any library file using your stored key: use it on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
 
     <p>Methodology, threat model, and full source for the encryption module are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19963302">doi.org/10.5281/zenodo.19963302</a>.</p>
   </article>
@@ -1006,7 +1006,7 @@
       <div class="colophon-price"><sup>$</sup>29</div>
     </div>
     <p>One-time &middot; up to 3 devices &middot; no subscription &middot; lifetime updates for v1.x</p>
-    <p>Distraction-free Markdown editor &middot; 12 built-in offline voices (Kokoro) &middot; word-by-word highlighting &middot; voice cloning via F5-TTS (GPU recommended) &middot; 100% local, no internet after install &middot; Windows now, Mac coming soon.</p>
+    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; word-by-word highlighting &middot; voice cloning on the roadmap &middot; 100% local &middot; Windows and macOS.</p>
   </section>
 
 
