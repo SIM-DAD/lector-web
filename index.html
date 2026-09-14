@@ -26,7 +26,7 @@
     "description": "Distraction-free Markdown writing environment with sentence-level read-aloud. Runs entirely on your machine. No cloud, no subscription.",
     "url": "https://uselector.app",
     "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Windows 10, Windows 11, macOS",
+    "operatingSystem": "Windows 10, Windows 11",
     "image": "https://uselector.app/img/social-share.png",
     "publisher": {
       "@type": "Organization",
@@ -962,11 +962,11 @@
   <article class="manuscript">
     <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. Lector&rsquo;s library writes documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about. Plaintext export stays one click away when you want it.</p>
 
-    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, the <strong>macOS Keychain</strong>, or the <strong>Linux Secret Service</strong>, depending on platform. We never see it. We never sync it. Per-user storage, locked to your login.</p>
+    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>. We never see it. We never sync it. Per-user storage, locked to your login.</p>
 
     <p>You can export plaintext on demand: per document, not as a global toggle. Encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is a published path. A free, MIT-licensed companion decrypter opens any library file using your stored key: use it on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
 
-    <p>Methodology, threat model, and full source for the encryption module are in the substantiation paper at <a href="https://doi.org/10.5281/zenodo.19963302">doi.org/10.5281/zenodo.19963302</a>.</p>
+    <p>A substantiation paper covering the methodology, threat model and full source of the encryption module will be published against the shipping build.</p>
   </article>
 
 
@@ -1006,7 +1006,7 @@
       <div class="colophon-price"><sup>$</sup>29</div>
     </div>
     <p>One-time &middot; up to 3 devices &middot; no subscription &middot; lifetime updates for v1.x</p>
-    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; word-by-word highlighting &middot; voice cloning on the roadmap &middot; 100% local &middot; Windows and macOS.</p>
+    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; word-by-word highlighting &middot; voice cloning on the roadmap &middot; 100% local &middot; Windows.</p>
   </section>
 
 
@@ -1029,7 +1029,6 @@
         <label>Platform preference <span>(optional)</span></label>
         <div class="radio-row">
           <label><input type="radio" name="platform" value="windows" checked> Windows</label>
-          <label><input type="radio" name="platform" value="mac"> Mac</label>
         </div>
       </div>
       <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>

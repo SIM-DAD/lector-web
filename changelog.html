@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lector · Release Log</title>
-<meta name="description" content="Every major iteration of Lector, newest first. Versioned, not dated.">
+<meta name="description" content="Current state, and nothing that has not happened. Versioned, not dated.">
 <link rel="icon" type="image/svg+xml" href="img/logo-1F2937.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,82 +75,25 @@
 
     <section class="lede">
       <h1>Release <em>log</em>.</h1>
-      <p>Every major iteration of Lector, newest first. We version what we ship and keep building within the version you own.</p>
+      <p>Current state, and nothing that has not happened. We version what we ship and keep building within the version you own.</p>
       <p class="note">Versioned, not dated. The number is the reference.</p>
     </section>
 
     <div class="log">
-
-      <article class="rel latest major">
-        <div class="ver"><span class="num">2.0</span><span class="name">The rebuild — write it, hear it back</span><span class="tag">In development</span></div>
-        <p class="summary">Lector is being rebuilt around one idea: you catch what's wrong with your writing when you hear it. Coming soon.</p>
+      <article class="rel major">
+        <div class="ver"><span class="num">0.2.0</span><span class="name">Private beta</span></div>
+        <p class="summary">The first signed Lector build, and the first that can update itself.</p>
         <ul class="hi">
-          <li>Read-aloud with word-level highlighting that skips code, URLs, and table syntax — it reads your prose, not your markup.</li>
-          <li>Click any sentence to resume from it; editorial marks (FIX / GOOD / QUESTION / REWRITE / CUT) that survive edits and travel with the document.</li>
-          <li>One document, two honest views: raw source and formatted text, always in sync.</li>
-          <li>Light and dark themes that follow your system; a full keyboard and screen-reader pass.</li>
-          <li>Natural offline neural voices in progress — no cloud, no subscription, your text never leaves the machine.</li>
+          <li>Markdown editor with a formatted view and a source view, switchable at any time.</li>
+          <li>Built for long documents: the editing chrome stays put when you write at the bottom of a long file.</li>
+          <li>Find and replace that behaves the same whether a file uses Windows or Unix line endings, including multi-line pasted searches.</li>
+          <li>Read-aloud using your system voices.</li>
+          <li>Opens Markdown files from Explorer, remembers your position, and reopens closed tabs.</li>
+          <li>Signed for Windows and timestamped, so the unknown-publisher warning is gone.</li>
+          <li>Runs entirely on your machine. Nothing is uploaded and no account is required.</li>
         </ul>
       </article>
 
-
-      <article class="rel latest">
-        <div class="ver"><span class="num">1.0.2</span></div>
-        <p class="summary">Read mode renders Markdown correctly in the packaged app.</p>
-        <ul class="hi"><li>Fixed an asset-path bug that left raw <code>**</code> and <code>##</code> markers showing instead of formatted text.</li></ul>
-      </article>
-
-      <article class="rel">
-        <div class="ver"><span class="num">1.0.1</span></div>
-        <p class="summary">Voice cloning no longer blocks startup.</p>
-        <ul class="hi"><li>The voice-cloning engine loads lazily in the background, so the editor and built-in voices are usable immediately instead of waiting behind a load screen.</li></ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">1.0.0</span><span class="name">First public release</span></div>
-        <p class="summary">The complete editor: read your draft back to you, in your own voice if you want, with everything kept on your machine.</p>
-        <ul class="hi">
-          <li>Distraction-free Markdown editor with read-aloud in twelve built-in voices.</li>
-          <li>One-shot voice cloning from a short reference clip.</li>
-          <li>Age-encrypted document vault keyed to the operating-system keychain.</li>
-          <li>Position memory per document, .docx import, dark mode, keyboard-driven playback.</li>
-          <li>Standalone Windows installer with an embedded runtime and a bundled speech model for a fast first launch.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.5.0</span><span class="name">Release hardening</span></div>
-        <p class="summary">Made it solid enough to ship.</p>
-        <ul class="hi">
-          <li>Isolated the speech and cloning engines into their own worker processes for stability.</li>
-          <li>Bundled the built-in speech model so the first launch is fast on a clean machine.</li>
-          <li>Added a local-first crash and error-reporting flow that sends nothing automatically.</li>
-        </ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.4.0</span><span class="name">Packaging pivot</span></div>
-        <p class="summary">Moved to a real Windows application.</p>
-        <ul class="hi"><li>Adopted a Tauri application shell with an embedded Python runtime and a proper installer, replacing the earlier bundling approach.</li></ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.3.0</span><span class="name">Local-first backend</span></div>
-        <p class="summary">Everything moved onto your machine.</p>
-        <ul class="hi"><li>Encrypted document library, license management, and a local backend that runs entirely offline.</li></ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.2.0</span><span class="name">The listen-edit loop</span></div>
-        <p class="summary">The core idea took shape.</p>
-        <ul class="hi"><li>Added the Reader view and the listen-while-you-edit workflow, with backstep-on-pause and position memory.</li></ul>
-      </article>
-
-      <article class="rel major">
-        <div class="ver"><span class="num">0.1.0</span><span class="name">First build</span></div>
-        <p class="summary">Where it began.</p>
-        <ul class="hi"><li>Initial Markdown editor with local read-aloud. Originally released as ScriVocalis, later renamed to Lector.</li></ul>
-      </article>
 
     </div>
 
