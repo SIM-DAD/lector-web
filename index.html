@@ -880,7 +880,20 @@
     }
     .oss-item:hover { color: var(--text); border-color: var(--muted); }
     .oss-item-name { font-weight: 600; color: var(--text); }
-  </style>
+  
+    /* The practice behind the product. Quiet by design: it should read as provenance,
+       not as an advertisement interrupting the product page. */
+    .practice { background: var(--surface); border-top: 1px solid var(--border);
+                border-bottom: 1px solid var(--border); padding: 3.5rem 1.25rem; }
+    .practice-inner { max-width: 680px; margin: 0 auto; }
+    .practice-eyebrow { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase;
+                        color: var(--muted); margin: 0 0 .6rem; }
+    .practice h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1rem; }
+    .practice p { color: var(--text); margin: 0 0 1rem; }
+    .practice-cta { color: var(--muted); }
+    .practice-cta a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .practice-cta a:hover { text-decoration-thickness: 2px; }
+</style>
 </head>
 <body>
 
@@ -1044,25 +1057,41 @@
       <p class="oss-heading">Open source software</p>
       <p class="oss-sub">Lector is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
       <div class="oss-grid">
-        <a class="oss-item" href="https://github.com/hexgrad/kokoro" target="_blank" rel="noopener"><span class="oss-item-name">Kokoro TTS</span><span>Apache 2.0</span></a>
-        <a class="oss-item" href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener"><span class="oss-item-name">F5-TTS</span><span>MIT</span></a>
-        <a class="oss-item" href="https://tauri.app" target="_blank" rel="noopener"><span class="oss-item-name">Tauri 2.0</span><span>MIT / Apache 2.0</span></a>
-        <a class="oss-item" href="https://pytorch.org" target="_blank" rel="noopener"><span class="oss-item-name">PyTorch</span><span>BSD-3-Clause</span></a>
-        <a class="oss-item" href="https://pytorch.org/audio" target="_blank" rel="noopener"><span class="oss-item-name">torchaudio</span><span>BSD-2-Clause</span></a>
-        <a class="oss-item" href="https://fastapi.tiangolo.com" target="_blank" rel="noopener"><span class="oss-item-name">FastAPI</span><span>MIT</span></a>
-        <a class="oss-item" href="https://www.uvicorn.org" target="_blank" rel="noopener"><span class="oss-item-name">uvicorn</span><span>BSD-3-Clause</span></a>
-        <a class="oss-item" href="https://github.com/SYSTRAN/faster-whisper" target="_blank" rel="noopener"><span class="oss-item-name">faster-whisper</span><span>MIT</span></a>
-        <a class="oss-item" href="https://github.com/python-openxmlformats/python-docx" target="_blank" rel="noopener"><span class="oss-item-name">python-docx</span><span>MIT</span></a>
-        <a class="oss-item" href="https://python-markdown.github.io" target="_blank" rel="noopener"><span class="oss-item-name">Markdown</span><span>BSD-3-Clause</span></a>
-        <a class="oss-item" href="https://github.com/bastibe/python-soundfile" target="_blank" rel="noopener"><span class="oss-item-name">soundfile</span><span>BSD-3-Clause</span></a>
-        <a class="oss-item" href="https://numpy.org" target="_blank" rel="noopener"><span class="oss-item-name">NumPy</span><span>BSD-3-Clause</span></a>
+        <a class="oss-item" href="https://theia-ide.org" target="_blank" rel="noopener"><span class="oss-item-name">Eclipse Theia</span><span>EPL-2.0 / GPL-2.0 w/ CPE</span></a>
+        <a class="oss-item" href="https://electronjs.org" target="_blank" rel="noopener"><span class="oss-item-name">Electron</span><span>MIT</span></a>
+        <a class="oss-item" href="https://microsoft.github.io/monaco-editor/" target="_blank" rel="noopener"><span class="oss-item-name">Monaco Editor</span><span>MIT</span></a>
+        <a class="oss-item" href="https://milkdown.dev" target="_blank" rel="noopener"><span class="oss-item-name">Milkdown</span><span>MIT</span></a>
+        <a class="oss-item" href="https://prosemirror.net" target="_blank" rel="noopener"><span class="oss-item-name">ProseMirror</span><span>MIT</span></a>
+        <a class="oss-item" href="https://github.com/hexgrad/kokoro" target="_blank" rel="noopener"><span class="oss-item-name">Kokoro TTS</span><span>Apache-2.0</span></a>
+        <a class="oss-item" href="https://github.com/runk/node-chardet" target="_blank" rel="noopener"><span class="oss-item-name">chardet</span><span>MIT</span></a>
+        <a class="oss-item" href="https://www.electron.build" target="_blank" rel="noopener"><span class="oss-item-name">electron-updater</span><span>MIT</span></a>
       </div>
     </div>
   </div>
 
 
   <!-- FOOTER -->
-  <footer class="footer">
+  
+  <!-- The practice behind the product. -->
+  <section class="practice" aria-labelledby="practice-h">
+    <div class="practice-inner">
+      <p class="practice-eyebrow">The practice behind the software</p>
+      <h2 id="practice-h">We built this for our own work first.</h2>
+      <p>Lector exists because drafting long documents in Markdown, day after day, wore through the editors we tried.</p>
+      <p>SIM DAD LLC is a communication consulting practice led by Dr. Alex P. Leith,
+         Associate Professor at SIUE. We audit and strengthen external communications,
+         design and run studies, collaborate on federal and foundation grants, and
+         deliver workshops. The software comes out of that work rather than the other
+         way round.</p>
+      <p class="practice-cta">
+        If it is the methods you need rather than the tool,
+        <a href="https://simdadllc.com#services">see what the practice does</a>
+        or <a href="mailto:hello@simdadllc.com">start a conversation</a>.
+      </p>
+    </div>
+  </section>
+
+<footer class="footer">
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Lector</div>
