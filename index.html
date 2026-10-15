@@ -45,7 +45,7 @@
       --accent:    #1F2937;
       --accent-h:  #0F172A;
       --text:      #0F0F0F;
-      --muted:     #6B7280;
+      --muted:     #586070;
       --bg:        #FFFFFF;
       --surface:   #F7F7F8;
       --border:    #E4E4E7;
@@ -568,7 +568,7 @@
       .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
     /* ═══════════════════════════════════════════════════════════ */
-    /*  MANUSCRIPT LAYOUT  —  the page is a piece of writing       */
+    /*  MANUSCRIPT LAYOUT: the page is a piece of writing       */
     /* ═══════════════════════════════════════════════════════════ */
 
     .manuscript {
@@ -893,6 +893,15 @@
     .practice-cta { color: var(--muted); }
     .practice-cta a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
     .practice-cta a:hover { text-decoration-thickness: 2px; }
+    /* 5:1 floor: the small tracked labels measure below the floor in the muted gray even at 6.3:1 declared,
+       so they take a darker ink in light mode and keep the muted token in dark mode. */
+    .issue-marker, .opening .byline, .colophon-label { color: #4B5563; }
+    @media (prefers-color-scheme: dark) {
+      .issue-marker, .opening .byline, .colophon-label { color: var(--muted); }
+      /* dark mode: the bright accent carries the button, so the label goes dark */
+      .btn-primary, .wl-submit { background: var(--accent); color: #09090B; border-color: var(--accent); }
+      .btn-primary:hover, .wl-submit:hover:not(:disabled) { background: var(--accent); filter: brightness(1.08); }
+    }
 </style>
 </head>
 <body>
@@ -912,7 +921,7 @@
 
 
   <!-- ISSUE MARKER -->
-  <div class="issue-marker">Lector &middot; Vol. I, No. 1 &middot; July 2026</div>
+  <div class="issue-marker">Lector &middot; Vol. I, No. 2 &middot; October 2026</div>
 
 
   <!-- OPENING -->
@@ -924,28 +933,28 @@
 
   <!-- LEDE + DROP CAP -->
   <article class="manuscript">
-    <p class="lede"><span class="lede-opener">Lector is a writing environment</span> with read-aloud built in. Write your draft, then hear it sentence by sentence. The voice catches what the eye skips over. Completely local. No cloud. No subscription.</p>
+    <p class="lede"><span class="lede-opener">Lector is a writing environment</span> with read-aloud built in. Write your draft, then hear it sentence by sentence. The voice catches what the eye skips over. Completely local, with no cloud and no subscription.</p>
 
-    <p>Every writer knows the feeling. You read a paragraph three times and it looks fine. Then you hear it read aloud and immediately catch the sentence that runs too long, the word that appears twice in four lines, the transition that doesn&rsquo;t quite land. That is not a grammar problem. It is a prose problem. The eye misses it because the brain already knows what you meant to say.</p>
+    <p>Every writer knows the feeling. You read a paragraph three times and it looks fine. Then you hear it read aloud and immediately catch the sentence that runs too long, the word that appears twice in four lines, the transition that doesn&rsquo;t quite land. That is a prose problem rather than a grammar problem, and the eye misses it because the brain already knows what you meant to say.</p>
 
-    <p>Hearing your writing is different. The voice does not know what you intended. It reads what is actually there.</p>
+    <p>Hearing your writing is different, because the voice does not know what you intended and reads only what is there.</p>
   </article>
 
 
 
 
-  <!-- SECTION I — WHAT IT DOES -->
+  <!-- SECTION I: WHAT IT DOES -->
   <div class="section-marker">
     <span class="numeral">I</span>
     <div class="heading">A second pass, through a <em>different sense</em>.</div>
   </div>
 
   <article class="manuscript" id="problem">
-    <p>Lector puts read-aloud inside the writing environment itself. No copying text into another application. No browser tabs. No switching tools mid-edit. You write, you listen, you revise, all in the same place.</p>
+    <p>Lector puts read-aloud inside the writing environment itself, so there is no copying text into another application and no switching tools mid-edit. You write, you listen, and you revise in the same place.</p>
 
-    <p>The editor is distraction-free. WYSIWYG mode renders formatting as you type. Raw Markdown is available for those who want it. You toggle between them without losing your place. Nothing else on screen.</p>
+    <p>The editor is distraction-free. It shows a formatted view or the raw Markdown source, and you switch between them without losing your place. Nothing else is on screen.</p>
 
-    <p>Read-aloud pairs every sentence with word-by-word highlighting so the playhead is always visible. It starts with your system&rsquo;s built-in voices, and a set of offline neural voices (Kokoro) follows as a free update. Click any word to jump there. The mechanic is mundane and the effect is not: most writers who use read-aloud tools never go back to editing in silence.</p>
+    <p>Read-aloud uses your system&rsquo;s built-in voices today, and a set of offline neural voices (Kokoro) follows as a free update. The mechanic is mundane; the effect is a second editor who has never seen your draft.</p>
   </article>
 
 
@@ -953,7 +962,7 @@
   <blockquote class="pull-quote">The voice does not know what you intended. It reads what is actually there.</blockquote>
 
 
-  <!-- SECTION II — VOICE CLONING -->
+  <!-- SECTION II: VOICE CLONING -->
   <div class="section-marker">
     <span class="numeral">II</span>
     <div class="heading">Your <em>own voice</em>, built once.</div>
@@ -966,18 +975,18 @@
   </article>
 
 
-  <!-- SECTION III — ENCRYPTED LIBRARY -->
+  <!-- SECTION III: ENCRYPTED LIBRARY -->
   <div class="section-marker">
     <span class="numeral">III</span>
-    <div class="heading">Save to the library. It is <em>encrypted</em> before it lands.</div>
+    <div class="heading">The library, <em>encrypted</em> before it lands.</div>
   </div>
 
   <article class="manuscript">
-    <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. Lector&rsquo;s library writes documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about. Plaintext export stays one click away when you want it.</p>
+    <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. The encrypted library is in development and is not in the current beta build; this is its design. Lector&rsquo;s library will write documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about, with plaintext export one click away when you want it.</p>
 
-    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>. We never see it. We never sync it. Per-user storage, locked to your login.</p>
+    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, per user and locked to your login, where we never see it and never sync it.</p>
 
-    <p>You can export plaintext on demand: per document, not as a global toggle. Encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is a published path. A free, MIT-licensed companion decrypter opens any library file using your stored key: use it on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
+    <p>Plaintext export will be per document rather than a global toggle: encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is part of the design. A free, MIT-licensed companion decrypter will open any library file using your stored key, on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
 
     <p>A substantiation paper covering the methodology, threat model and full source of the encryption module will be published against the shipping build.</p>
   </article>
@@ -987,14 +996,14 @@
   <blockquote class="pull-quote">You already know how to edit. Lector gives you a second pass through a different sense.</blockquote>
 
 
-  <!-- SECTION IV — END NOTE -->
+  <!-- SECTION IV: END NOTE -->
   <div class="section-marker">
     <span class="numeral">IV</span>
-    <div class="heading"><em>Simple.</em> One-time. Yours.</div>
+    <div class="heading">One price, <em>paid once</em>.</div>
   </div>
 
   <article class="manuscript">
-    <p>Lector is in private beta. <a href="/beta/" style="color:var(--accent);border-bottom:1px solid var(--border);">Ask for beta access</a> to try it now, or join the waitlist below and we will notify you when it ships. The launch price is <strong>$29</strong>, one-time, for up to three devices. No subscription. No telemetry. No account required. Lifetime updates for v1.x.</p>
+    <p>Lector is in private beta. <a href="/beta/" style="color:var(--accent);border-bottom:1px solid var(--border);">Ask for beta access</a> to try it now, or join the waitlist below and we will notify you when it ships. The launch price is <strong>$29</strong>, one-time, for up to three devices. No subscription, no telemetry, and no account required. Lifetime updates for v1.x.</p>
   </article>
 
 
@@ -1008,7 +1017,7 @@
   </div>
   <div class="signature">
     <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar" loading="lazy" decoding="async" width="96" height="96">
-    Lector Editorial &middot; SIM DAD LLC &middot; July 2026
+    Lector Editorial &middot; SIM DAD LLC &middot; October 2026
   </div>
 
 
@@ -1019,14 +1028,14 @@
       <div class="colophon-price"><sup>$</sup>29</div>
     </div>
     <p>One-time &middot; up to 3 devices &middot; no subscription &middot; lifetime updates for v1.x</p>
-    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; word-by-word highlighting &middot; voice cloning on the roadmap &middot; 100% local &middot; Windows.</p>
+    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; encrypted library and voice cloning on the roadmap &middot; 100% local &middot; Windows.</p>
   </section>
 
 
   <!-- WAITLIST (end-block, quiet) -->
   <section class="end-waitlist" id="waitlist">
     <div class="heading">Be <em>first</em>.</div>
-    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">Join the waitlist and we will notify you the moment Lector is ready. No drip campaigns. No newsletters. One email, when it is ready.</p>
+    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">Join the waitlist and we will notify you the moment Lector is ready. No drip campaigns and no newsletters: one email when it is ready.</p>
 
     <div class="wl-success" id="wl-success" role="status">
       <h3>You&rsquo;re on the list.</h3>
