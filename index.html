@@ -17,7 +17,8 @@
   <meta name="twitter:image" content="https://uselector.app/img/social-share.png">
   <link rel="canonical" href="https://uselector.app/">
   <meta name="author" content="SIM DAD LLC">
-  <meta name="theme-color" content="#1F2937">
+  <meta name="theme-color" content="#E3E5E8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,1037 +36,159 @@
     }
   }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400&display=swap" rel="stylesheet">
-
-  <style>
-    /* ─── TOKENS ─────────────────────────────────────────────────── */
-    :root {
-      --accent:    #1F2937;
-      --accent-h:  #0F172A;
-      --text:      #0F0F0F;
-      --muted:     #586070;
-      --bg:        #FFFFFF;
-      --surface:   #F7F7F8;
-      --border:    #E4E4E7;
-      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Newsreader', 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
-      --max-w:     1080px;
-      --radius:    8px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text:    #F4F4F5;
-        --muted:   #A1A1AA;
-        --bg:      #09090B;
-        --surface: #111113;
-        --border:  #27272A;
-        --accent:  #F2B833;
-        --accent-h: #E69F00;
-      }
-    }
-
-    /* ─── RESET ──────────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      background-color: var(--bg);
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      background-repeat: repeat;
-    }
-    img, video { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── PAGE-LOAD REVEAL ───────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
-      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
-    }
-    .hero-eyebrow { animation-delay: 0.10s; }
-    .hero h1     { animation-delay: 0.22s; }
-    .hero-sub    { animation-delay: 0.44s; }
-    .hero-actions{ animation-delay: 0.60s; }
-    .hero-meta   { animation-delay: 0.74s; }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
-        animation: none;
-      }
-    }
-
-    /* ─── LAYOUT ─────────────────────────────────────────────────── */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ─── NAV ────────────────────────────────────────────────────── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: transparent;
-      border-bottom: 1px solid transparent;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .nav.scrolled {
-      background: var(--bg);
-      border-color: var(--border);
-    }
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-brand { display: flex; align-items: center; }
-    .nav-wordmark { height: 36px; width: auto; display: block; }
-
-    /* ─── BUTTONS ────────────────────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.6rem 1.3rem;
-      border-radius: var(--radius);
-      font-family: var(--font);
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1.5px solid transparent;
-      transition: all 0.15s;
-      text-decoration: none;
-    }
-    .btn-primary   { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .btn-primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
-    .btn-ghost     { background: transparent; color: var(--text); border-color: var(--border); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-ghost-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
-    .btn-ghost-white:hover { border-color: #fff; }
-    .btn-lg { padding: 0.8rem 1.75rem; font-size: 1rem; }
-
-    /* ─── HERO ───────────────────────────────────────────────────── */
-    .hero {
-      padding: 7rem 0 5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 6.5vw, 5.25rem);
-      font-weight: 600;
-      line-height: 1.02;
-      letter-spacing: -0.025em;
-      max-width: 14ch;
-      margin-bottom: 1.5rem;
-    }
-    .hero-accent {
-      color: var(--accent);
-      font-style: italic;
-      font-weight: 500;
-    }
-    .hero-sub {
-      font-size: 1.125rem;
-      color: var(--muted);
-      max-width: 52ch;
-      line-height: 1.65;
-      margin-bottom: 2.5rem;
-      font-weight: 400;
-    }
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .hero-meta {
-      margin-top: 1.75rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    .hero-meta span { margin: 0 0.4rem; opacity: 0.4; }
-
-    /* ─── STATS STRIP ────────────────────────────────────────────── */
-    .stats-strip {
-      border-bottom: 1px solid var(--border);
-      padding: 2.75rem 0;
-    }
-    .stats-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: -0.025em;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-      font-weight: 500;
-    }
-
-    /* ─── DEMO ───────────────────────────────────────────────────── */
-    .demo-section {
-      padding: 4rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .demo-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .demo-video {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      display: block;
-    }
-
-    /* ─── SECTIONS ───────────────────────────────────────────────── */
-    .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
-    .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
-    .section-dark  { padding: 6rem 0; background: #0F0F0F; color: #FFFFFF; }
-    @media (prefers-color-scheme: dark) {
-      .section-dark { background: #1C1C1E; }
-    }
-
-    .eyebrow {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
-
-    h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.85rem, 3.7vw, 2.75rem);
-      font-weight: 600;
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.25rem;
-    }
-    h2 em {
-      font-style: italic;
-      color: var(--accent);
-      font-weight: 500;
-    }
-    .section-dark h2 { color: #fff; }
-    .section-dark h2 em { color: var(--accent); }
-
-    .section-sub {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      max-width: 58ch;
-      line-height: 1.65;
-    }
-    .section-dark .section-sub { color: rgba(255,255,255,0.5); }
-
-    /* ─── PROBLEM / SOLUTION ─────────────────────────────────────── */
-    .prose-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-      margin-top: 3.5rem;
-    }
-    .prose-col p {
-      font-size: 0.9875rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1rem;
-    }
-    .prose-col p:last-child { margin-bottom: 0; }
-
-    /* ─── FEATURES ───────────────────────────────────────────────── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin-top: 3.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .feature-cell {
-      padding: 2rem 2rem 2rem;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .feature-cell:nth-child(even) { border-right: none; }
-    .feature-cell:nth-last-child(-n+2) { border-bottom: none; }
-    .feature-cell h3 {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-    .feature-cell p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-    .feature-num {
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
-    }
-
-    /* ─── DARK PULLQUOTE ─────────────────────────────────────────── */
-    .pullquote {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      line-height: 1.3;
-      color: #fff;
-      max-width: 28ch;
-      margin-bottom: 2rem;
-      letter-spacing: -0.02em;
-    }
-    .pullquote em {
-      color: var(--accent);
-      font-style: normal;
-    }
-
-    /* ─── PRICING ────────────────────────────────────────────────── */
-    .pricing-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      max-width: 420px;
-    }
-    .price-tag {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin: 1rem 0 0.35rem;
-    }
-    .price-tag sup { font-size: 1.5rem; vertical-align: super; }
-    .price-note {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .price-features {
-      list-style: none;
-      margin-bottom: 2rem;
-    }
-    .price-features li {
-      font-size: 0.875rem;
-      color: var(--muted);
-      padding: 0.5rem 0;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-    }
-    .price-features li::before {
-      content: '✓';
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    /* ─── WAITLIST ───────────────────────────────────────────────── */
-    .waitlist-wrap {
-      max-width: 520px;
-    }
-    .wl-form {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .wl-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .wl-field label {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .wl-field label span { font-weight: 400; color: var(--muted); }
-    .wl-field input[type="email"] {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-family: var(--font);
-      font-size: 0.9375rem;
-      background: var(--bg);
-      color: var(--text);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      transition: border-color 0.15s;
-    }
-    .wl-field input[type="email"]:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    .wl-field input::placeholder { color: var(--muted); }
-    .radio-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .radio-row label {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-      cursor: pointer;
-    }
-    .radio-row input[type="radio"] { accent-color: var(--accent); }
-    .wl-submit {
-      width: 100%;
-      padding: 0.875rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-family: var(--font);
-      font-size: 0.9375rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .wl-submit:hover:not(:disabled) { background: var(--accent-h); }
-    .wl-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-    .wl-fine {
-      font-size: 0.775rem;
-      color: var(--muted);
-    }
-    .wl-success {
-      display: none;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-    }
-    .wl-success.visible { display: block; }
-    .wl-success h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .wl-success p  { font-size: 0.875rem; color: var(--muted); }
-    .wl-error {
-      display: none;
-      font-size: 0.8125rem;
-      color: #dc2626;
-    }
-    .wl-error.visible { display: block; }
-
-    /* ─── FOOTER ─────────────────────────────────────────────────── */
-    .footer {
-      padding: 3rem 0 2.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-    .footer-brand {
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-    }
-    .footer-sub {
-      font-size: 0.775rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .footer-links {
-      display: flex;
-      gap: 1.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      transition: color 0.15s;
-    }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy {
-      max-width: var(--max-w);
-      margin: 1.5rem auto 0;
-      padding: 1.5rem 2rem 0;
-      border-top: 1px solid var(--border);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    /* ─── FOCUS ──────────────────────────────────────────────────── */
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .hero       { padding: 5.5rem 0 4rem; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .prose-grid  { grid-template-columns: 1fr; gap: 2rem; }
-      .features-grid { grid-template-columns: 1fr; }
-      .feature-cell { border-right: none; }
-      .feature-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
-      .feature-cell:last-child { border-bottom: none; }
-      .section     { padding: 4.5rem 0; }
-      .section-alt { padding: 4.5rem 0; }
-      .section-dark { padding: 4.5rem 0; }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1     { font-size: 2.6rem; }
-      .hero-actions .btn { width: 100%; justify-content: center; }
-      .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    }
-    /* ═══════════════════════════════════════════════════════════ */
-    /*  MANUSCRIPT LAYOUT: the page is a piece of writing       */
-    /* ═══════════════════════════════════════════════════════════ */
-
-    .manuscript {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      font-family: var(--font-display);
-      color: var(--text);
-    }
-    .manuscript p {
-      font-size: 1.1875rem;
-      line-height: 1.7;
-      margin: 0 0 1.4rem;
-      color: var(--text);
-    }
-    .manuscript em { font-style: italic; }
-
-    /* ── issue marker (top) ── */
-    .issue-marker {
-      max-width: 720px;
-      margin: 4rem auto 3rem;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      font-family: var(--font);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .issue-marker::before,
-    .issue-marker::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── opening (replaces hero) ── */
-    .opening {
-      max-width: 720px;
-      margin: 0 auto 3.5rem;
-      padding: 0 2rem;
-      text-align: center;
-    }
-    .opening h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 9vw, 7rem);
-      font-weight: 500;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      margin: 0;
-      color: var(--text);
-    }
-    .opening h1 em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    .opening .byline {
-      font-family: var(--font);
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 2rem;
-    }
-
-    /* ── lede with drop cap ── */
-    .lede {
-      font-size: 1.3125rem !important;
-      line-height: 1.55 !important;
-      margin-bottom: 2rem !important;
-    }
-    .lede::first-letter {
-      font-family: var(--font-display);
-      float: left;
-      font-size: 5.6em;
-      line-height: 0.85;
-      padding: 0.05em 0.12em 0 0;
-      font-weight: 600;
-      color: var(--accent);
-      font-style: italic;
-    }
-    .lede-opener {
-      font-variant: small-caps;
-      letter-spacing: 0.05em;
-      font-weight: 500;
-    }
-
-    /* ── section markers (Roman numerals) ── */
-    .section-marker {
-      max-width: 720px;
-      margin: 4.5rem auto 1.5rem;
-      padding: 0 2rem;
-      text-align: center;
-    }
-    .section-marker .numeral {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 500;
-      font-style: italic;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      display: inline-block;
-      padding: 0 1.5rem;
-      position: relative;
-    }
-    .section-marker .numeral::before,
-    .section-marker .numeral::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 3rem;
-      height: 1px;
-      background: var(--border);
-    }
-    .section-marker .numeral::before { right: 100%; }
-    .section-marker .numeral::after  { left: 100%; }
-
-    .section-marker .heading {
-      font-family: var(--font-display);
-      font-size: 1.875rem;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-      line-height: 1.2;
-      margin-top: 0.75rem;
-      color: var(--text);
-    }
-    .section-marker .heading em {
-      font-style: italic;
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* ── pull quote ── */
-    .pull-quote {
-      max-width: 720px;
-      margin: 3.5rem auto;
-      padding: 2rem 2rem 2rem 3.5rem;
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
-      font-style: italic;
-      font-weight: 500;
-      line-height: 1.3;
-      letter-spacing: -0.015em;
-      color: var(--accent);
-      border-left: 3px solid var(--accent);
-      position: relative;
-    }
-    .pull-quote::before {
-      content: "“";
-      position: absolute;
-      left: 1.2rem;
-      top: 0.5rem;
-      font-size: 4rem;
-      color: var(--accent);
-      opacity: 0.35;
-      line-height: 1;
-      font-family: var(--font-display);
-    }
-
-    /* ── figure ── */
-    .figure {
-      max-width: 920px;
-      margin: 4rem auto;
-      padding: 0 2rem;
-    }
-    .figure-frame {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      background: var(--surface);
-    }
-    .figure-frame video,
-    .figure-frame img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    .figure-caption {
-      font-family: var(--font);
-      font-size: 0.8125rem;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-top: 0.75rem;
-      padding-left: 0.25rem;
-      max-width: 56ch;
-    }
-    .figure-caption b {
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      color: var(--accent);
-      margin-right: 0.5rem;
-    }
-
-    /* ── article-end ornament + signature ── */
-    .ornament {
-      max-width: 720px;
-      margin: 3.5rem auto 1.5rem;
-      padding: 0 2rem;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--accent);
-      opacity: 0.5;
-    }
-    .signature {
-      max-width: 720px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-      font-family: var(--font);
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-    }
-    .signature-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      display: inline-block; vertical-align: middle; margin-right: 0.85rem;
-      border: 1px solid var(--border); object-fit: cover;
-    }
-
-    /* ── inline numerical anchors in the prose ── */
-    .manuscript strong {
-      font-weight: 600;
-      color: var(--accent);
-      font-style: italic;
-    }
-
-    /* ── quiet pricing colophon ── */
-    .colophon {
-      max-width: 720px;
-      margin: 6rem auto 4rem;
-      padding: 3rem 2rem 0;
-      border-top: 1px solid var(--border);
-    }
-    .colophon-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .colophon-label {
-      font-family: var(--font);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .colophon-price {
-      font-family: var(--font-display);
-      font-size: 2.25rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-    }
-    .colophon-price sup { font-size: 1.2rem; vertical-align: super; padding-right: 0.1em; }
-    .colophon p {
-      font-family: var(--font);
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 0.5rem;
-    }
-
-    /* ── waitlist as quiet end-block ── */
-    .end-waitlist {
-      max-width: 720px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
-    }
-    .end-waitlist .heading {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-    .end-waitlist .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
-
-    /* ── responsive ── */
-    @media (max-width: 720px) {
-      .opening h1 { font-size: clamp(2.6rem, 12vw, 4rem); }
-      .lede::first-letter { font-size: 4em; }
-      .pull-quote { padding: 1.5rem 1.5rem 1.5rem 2.5rem; }
-      .pull-quote::before { left: 0.8rem; top: 0.4rem; font-size: 3rem; }
-      .section-marker .numeral::before,
-      .section-marker .numeral::after { width: 1.5rem; }
-    }
-
-    /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
-    .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
-    .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
-    .oss-sub { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; max-width: 64ch; }
-    .oss-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .oss-item {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.25rem 0.7rem; border: 1px solid var(--border); border-radius: 100px;
-      font-size: 0.775rem; color: var(--muted); text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .oss-item:hover { color: var(--text); border-color: var(--muted); }
-    .oss-item-name { font-weight: 600; color: var(--text); }
-  
-    /* The practice behind the product. Quiet by design: it should read as provenance,
-       not as an advertisement interrupting the product page. */
-    .practice { background: var(--surface); border-top: 1px solid var(--border);
-                border-bottom: 1px solid var(--border); padding: 3.5rem 1.25rem; }
-    .practice-inner { max-width: 680px; margin: 0 auto; }
-    .practice-eyebrow { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase;
-                        color: var(--muted); margin: 0 0 .6rem; }
-    .practice h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1rem; }
-    .practice p { color: var(--text); margin: 0 0 1rem; }
-    .practice-cta { color: var(--muted); }
-    .practice-cta a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-    .practice-cta a:hover { text-decoration-thickness: 2px; }
-    /* 5:1 floor: the small tracked labels measure below the floor in the muted gray even at 6.3:1 declared,
-       so they take a darker ink in light mode and keep the muted token in dark mode. */
-    .issue-marker, .opening .byline, .colophon-label { color: #4B5563; }
-    @media (prefers-color-scheme: dark) {
-      .issue-marker, .opening .byline, .colophon-label { color: var(--muted); }
-      /* dark mode: the bright accent carries the button, so the label goes dark */
-      .btn-primary, .wl-submit { background: var(--accent); color: #09090B; border-color: var(--accent); }
-      .btn-primary:hover, .wl-submit:hover:not(:disabled) { background: var(--accent); filter: brightness(1.08); }
-    }
-</style>
+  <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/lector.css">
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAV (on the desk) -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-brand">
         <picture>
           <source srcset="img/wordmark-C9B976.svg" media="(prefers-color-scheme: dark)">
-          <img src="img/wordmark-1F2937.svg" alt="Lector" class="nav-wordmark">
+          <img src="img/wordmark-1F2937.svg" alt="Lector" class="nav-wordmark" width="187" height="32">
         </picture>
       </a>
-      <a href="/beta/" class="btn btn-primary">Ask for beta access</a>
+      <a href="/beta/" class="btn">Ask for beta access</a>
     </div>
   </nav>
 
+  <!-- THE SHEET: a printed draft under revision -->
+  <main class="sheet">
 
-  <!-- ISSUE MARKER -->
-  <div class="issue-marker">Lector &middot; Vol. I, No. 2 &middot; October 2026</div>
+    <!-- running head -->
+    <div class="running-head"><span>Lector</span><span class="rh-right"><span>Vol. I, No. 2</span><span>October 2026</span></span></div>
 
+    <!-- title page -->
+    <header class="title">
+      <h1>Write&nbsp;it.<br>Hear&nbsp;it&nbsp;back.</h1>
+      <ul class="title-lines">
+        <li>A local-first writing tool</li>
+        <li>in private beta</li>
+        <li>$29 one-time</li>
+      </ul>
+    </header>
 
-  <!-- OPENING -->
-  <header class="opening">
-    <h1>Write&nbsp;it.<br><em>Hear</em>&nbsp;it&nbsp;back.</h1>
-    <div class="byline">A local-first writing tool &middot; in private beta &middot; $29 one-time</div>
-  </header>
+    <article class="text">
+      <p class="lede"><svg class="mark" aria-hidden="true" focusable="false" viewBox="0 0 14 100" preserveAspectRatio="none"><path d="M7 1 C 5 20, 9 38, 6.5 55 S 8 84, 6 99" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke" pathLength="1"/></svg>Lector is a writing environment with read-aloud built in. Write your draft, then hear it sentence by sentence. The voice catches what the eye skips over. Completely local, with no cloud and no subscription.</p>
 
+      <p>Every writer knows the feeling. You read a paragraph three times and it looks fine. Then you hear it read aloud and immediately catch the sentence that runs too long, the word that appears twice in four lines, the transition that doesn&rsquo;t quite land. That is a prose problem rather than a grammar problem, and the eye misses it because the brain already knows what you meant to say.</p>
 
-  <!-- LEDE + DROP CAP -->
-  <article class="manuscript">
-    <p class="lede"><span class="lede-opener">Lector is a writing environment</span> with read-aloud built in. Write your draft, then hear it sentence by sentence. The voice catches what the eye skips over. Completely local, with no cloud and no subscription.</p>
+      <p>Hearing your writing is different, because the voice does not know what you intended and reads only what is there.</p>
+    </article>
 
-    <p>Every writer knows the feeling. You read a paragraph three times and it looks fine. Then you hear it read aloud and immediately catch the sentence that runs too long, the word that appears twice in four lines, the transition that doesn&rsquo;t quite land. That is a prose problem rather than a grammar problem, and the eye misses it because the brain already knows what you meant to say.</p>
+    <!-- I: WHAT IT DOES -->
+    <section class="part" id="problem">
+      <h2 class="part-head"><span class="numeral">I</span>A second pass, through a different sense.</h2>
+      <div class="text">
+        <p>Lector puts read-aloud inside the writing environment itself, so there is no copying text into another application and no switching tools mid-edit. You write, you listen, and you revise in the same place.</p>
 
-    <p>Hearing your writing is different, because the voice does not know what you intended and reads only what is there.</p>
-  </article>
+        <p>The editor is distraction-free. It shows a formatted view or the raw Markdown source, and you switch between them without losing your place. Nothing else is on screen.</p>
 
-
-
-
-  <!-- SECTION I: WHAT IT DOES -->
-  <div class="section-marker">
-    <span class="numeral">I</span>
-    <div class="heading">A second pass, through a <em>different sense</em>.</div>
-  </div>
-
-  <article class="manuscript" id="problem">
-    <p>Lector puts read-aloud inside the writing environment itself, so there is no copying text into another application and no switching tools mid-edit. You write, you listen, and you revise in the same place.</p>
-
-    <p>The editor is distraction-free. It shows a formatted view or the raw Markdown source, and you switch between them without losing your place. Nothing else is on screen.</p>
-
-    <p>Read-aloud uses your system&rsquo;s built-in voices today, and a set of offline neural voices (Kokoro) follows as a free update. The mechanic is mundane; the effect is a second editor who has never seen your draft.</p>
-  </article>
-
-
-  <!-- PULL QUOTE 1 -->
-  <blockquote class="pull-quote">The voice does not know what you intended. It reads what is actually there.</blockquote>
-
-
-  <!-- SECTION II: VOICE CLONING -->
-  <div class="section-marker">
-    <span class="numeral">II</span>
-    <div class="heading">Your <em>own voice</em>, built once.</div>
-  </div>
-
-  <article class="manuscript">
-    <p>Voice cloning is on the Lector roadmap: record five to fifteen seconds of audio and Lector will build a voice profile from it, so read-aloud can use your own voice, or a voice familiar to you. The profile will be built once and live on your computer permanently.</p>
-
-    <p>Cloning will run on your machine, with no upload, no remote API, and no third-party service. The reference clip is processed locally, the model runs locally, and the resulting profile is stored locally. If you uninstall Lector, the profile goes with it.</p>
-  </article>
-
-
-  <!-- SECTION III: ENCRYPTED LIBRARY -->
-  <div class="section-marker">
-    <span class="numeral">III</span>
-    <div class="heading">The library, <em>encrypted</em> before it lands.</div>
-  </div>
-
-  <article class="manuscript">
-    <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. The encrypted library is in development and is not in the current beta build; this is its design. Lector&rsquo;s library will write documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about, with plaintext export one click away when you want it.</p>
-
-    <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, per user and locked to your login, where we never see it and never sync it.</p>
-
-    <p>Plaintext export will be per document rather than a global toggle: encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is part of the design. A free, MIT-licensed companion decrypter will open any library file using your stored key, on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
-
-    <p>A substantiation paper covering the methodology, threat model and full source of the encryption module will be published against the shipping build.</p>
-  </article>
-
-
-  <!-- PULL QUOTE 2 -->
-  <blockquote class="pull-quote">You already know how to edit. Lector gives you a second pass through a different sense.</blockquote>
-
-
-  <!-- SECTION IV: END NOTE -->
-  <div class="section-marker">
-    <span class="numeral">IV</span>
-    <div class="heading">One price, <em>paid once</em>.</div>
-  </div>
-
-  <article class="manuscript">
-    <p>Lector is in private beta. <a href="/beta/" style="color:var(--accent);border-bottom:1px solid var(--border);">Ask for beta access</a> to try it now, or join the waitlist below and we will notify you when it ships. The launch price is <strong>$29</strong>, one-time, for up to three devices. No subscription, no telemetry, and no account required. Lifetime updates for v1.x.</p>
-  </article>
-
-
-  <!-- ORNAMENT + SIGNATURE -->
-  <div class="ornament" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.4em;height:2.4em;display:inline-block;vertical-align:middle;">
-      <path d="M32 8 L20 48 L32 58 L44 48 Z" stroke-width="1.75"/>
-      <line x1="32" y1="22" x2="32" y2="58" stroke-width="1.25"/>
-      <circle cx="32" cy="34" r="2" fill="currentColor" stroke="none"/>
-    </svg>
-  </div>
-  <div class="signature">
-    <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar" loading="lazy" decoding="async" width="96" height="96">
-    Lector Editorial &middot; SIM DAD LLC &middot; October 2026
-  </div>
-
-
-  <!-- COLOPHON: PRICING -->
-  <section class="colophon" id="pricing">
-    <div class="colophon-row">
-      <span class="colophon-label">Personal license</span>
-      <div class="colophon-price"><sup>$</sup>29</div>
-    </div>
-    <p>One-time &middot; up to 3 devices &middot; no subscription &middot; lifetime updates for v1.x</p>
-    <p>Distraction-free Markdown editor &middot; system voices now, offline neural voices (Kokoro) as a free update &middot; encrypted library and voice cloning on the roadmap &middot; 100% local &middot; Windows.</p>
-  </section>
-
-
-  <!-- WAITLIST (end-block, quiet) -->
-  <section class="end-waitlist" id="waitlist">
-    <div class="heading">Be <em>first</em>.</div>
-    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">Join the waitlist and we will notify you the moment Lector is ready. No drip campaigns and no newsletters: one email when it is ready.</p>
-
-    <div class="wl-success" id="wl-success" role="status">
-      <h3>You&rsquo;re on the list.</h3>
-      <p>We&rsquo;ll be in touch when Lector launches.</p>
-    </div>
-
-    <form class="wl-form" id="wl-form" novalidate>
-      <div class="wl-field">
-        <label for="wl-email">Email address</label>
-        <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
+        <p>Read-aloud uses your system&rsquo;s built-in voices today, and a set of offline neural voices (Kokoro) follows as a free update. The mechanic is mundane; the effect is a second editor who has never seen your draft.</p>
       </div>
-      <div class="wl-field">
-        <label>Platform preference <span>(optional)</span></label>
-        <div class="radio-row">
-          <label><input type="radio" name="platform" value="windows" checked> Windows</label>
+      <blockquote class="note">The voice does not know what you intended. It reads what is actually there.</blockquote>
+    </section>
+
+    <!-- II: VOICE CLONING -->
+    <section class="part">
+      <h2 class="part-head"><span class="numeral">II</span>Your own voice, built once.</h2>
+      <div class="text">
+        <p>Voice cloning is on the Lector roadmap: record five to fifteen seconds of audio and Lector will build a voice profile from it, so read-aloud can use your own voice, or a voice familiar to you. The profile will be built once and live on your computer permanently.</p>
+
+        <p>Cloning will run on your machine, with no upload, no remote API, and no third-party service. The reference clip is processed locally, the model runs locally, and the resulting profile is stored locally. If you uninstall Lector, the profile goes with it.</p>
+      </div>
+    </section>
+
+    <!-- III: ENCRYPTED LIBRARY -->
+    <section class="part">
+      <h2 class="part-head"><span class="numeral">III</span>The library, encrypted before it lands.</h2>
+      <div class="text">
+        <p>Local-first is half the privacy story. The other half is what sits on disk after you close the editor. The encrypted library is in development and is not in the current beta build; this is its design. Lector&rsquo;s library will write documents to disk as <strong>age v1</strong> ciphertext under a key only your operating system knows about, with plaintext export one click away when you want it.</p>
+
+        <p>The encryption is age v1 with X25519 keys and ChaCha20-Poly1305 ciphers. The plaintext document never sits in the library directory, even briefly: a scratch directory mediates encrypt and decrypt and is swept on every Lector startup. The X25519 secret key lives in the <strong>Windows Credential Manager</strong>, per user and locked to your login, where we never see it and never sync it.</p>
+
+        <p>Plaintext export will be per document rather than a global toggle: encrypt for archival, plain for sharing or backup. <strong>Recovery without Lector</strong> is part of the design. A free, MIT-licensed companion decrypter will open any library file using your stored key, on a fresh machine, after uninstall, or for bulk export. (The decrypter formerly introduced as Resero continues under a new name; <a href="https://useresero.app">Resero</a> is now the SIM DAD workbench.)</p>
+
+        <p>A substantiation paper covering the methodology, threat model and full source of the encryption module will be published against the shipping build.</p>
+      </div>
+      <blockquote class="note">You already know how to edit. Lector gives you a second pass through a different sense.</blockquote>
+    </section>
+
+    <!-- IV: END NOTE -->
+    <section class="part">
+      <h2 class="part-head"><span class="numeral">IV</span>One price, paid once.</h2>
+      <div class="text">
+        <p>Lector is in private beta. <a href="/beta/">Ask for beta access</a> to try it now, or join the waitlist below and we will notify you when it ships. The launch price is <strong>$29</strong>, one-time, for up to three devices. No subscription, no telemetry, and no account required. Lifetime updates for v1.x.</p>
+      </div>
+    </section>
+
+    <!-- SIGN-OFF -->
+    <div class="signoff">
+      <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar" loading="lazy" decoding="async" width="96" height="96">
+      <ul>
+        <li>Lector Editorial</li>
+        <li>SIM DAD LLC</li>
+        <li>October 2026</li>
+      </ul>
+    </div>
+
+    <!-- PRICING -->
+    <section class="colophon" id="pricing">
+      <div class="colophon-row">
+        <span class="colophon-label">Personal license</span>
+        <div class="colophon-price"><sup>$</sup>29</div>
+      </div>
+      <div class="terms-pair">
+        <ul class="terms">
+          <li>One-time</li>
+          <li>up to 3 devices</li>
+          <li>no subscription</li>
+          <li>lifetime updates for v1.x</li>
+        </ul>
+        <ul class="terms">
+          <li>Distraction-free Markdown editor</li>
+          <li>system voices now, offline neural voices (Kokoro) as a free update</li>
+          <li>encrypted library and voice cloning on the roadmap</li>
+          <li>100% local</li>
+          <li>Windows.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WAITLIST -->
+    <section class="end-waitlist" id="waitlist">
+      <h2>Be first.</h2>
+      <p class="wl-intro">Join the waitlist and we will notify you the moment Lector is ready. No drip campaigns and no newsletters: one email when it is ready.</p>
+
+      <div class="wl-success" id="wl-success" role="status">
+        <h3>You&rsquo;re on the list.</h3>
+        <p>We&rsquo;ll be in touch when Lector launches.</p>
+      </div>
+
+      <form class="wl-form" id="wl-form" novalidate>
+        <div class="wl-field">
+          <label for="wl-email">Email address</label>
+          <input type="email" id="wl-email" name="email" placeholder="you@example.com" required autocomplete="email">
         </div>
-      </div>
-      <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
-      <p class="wl-error" id="wl-error" role="alert"></p>
-      <p class="wl-fine">No spam. Unsubscribe anytime.</p>
-    </form>
-  </section>
+        <div class="wl-field">
+          <label>Platform preference <span>(optional)</span></label>
+          <div class="radio-row">
+            <label><input type="radio" name="platform" value="windows" checked> Windows</label>
+          </div>
+        </div>
+        <button type="submit" class="btn wl-submit" id="wl-submit">Join the waitlist</button>
+        <p class="wl-error" id="wl-error" role="alert"></p>
+        <p class="wl-fine">No spam. Unsubscribe anytime.</p>
+      </form>
+    </section>
 
-
-  <!-- OPEN SOURCE ATTRIBUTION -->
-  <div class="oss-section">
-    <div class="container">
-      <p class="oss-heading">Open source software</p>
+    <!-- BACK MATTER: OPEN SOURCE ATTRIBUTION -->
+    <section class="back-matter">
+      <h2>Open source software</h2>
       <p class="oss-sub">Lector is a commercial product built on open source software. We gratefully acknowledge the following projects and their contributors.</p>
-      <div class="oss-grid">
+      <div class="oss-list">
         <a class="oss-item" href="https://theia-ide.org" target="_blank" rel="noopener"><span class="oss-item-name">Eclipse Theia</span><span>EPL-2.0 / GPL-2.0 w/ CPE</span></a>
         <a class="oss-item" href="https://electronjs.org" target="_blank" rel="noopener"><span class="oss-item-name">Electron</span><span>MIT</span></a>
         <a class="oss-item" href="https://microsoft.github.io/monaco-editor/" target="_blank" rel="noopener"><span class="oss-item-name">Monaco Editor</span><span>MIT</span></a>
@@ -1075,16 +198,11 @@
         <a class="oss-item" href="https://github.com/runk/node-chardet" target="_blank" rel="noopener"><span class="oss-item-name">chardet</span><span>MIT</span></a>
         <a class="oss-item" href="https://www.electron.build" target="_blank" rel="noopener"><span class="oss-item-name">electron-updater</span><span>MIT</span></a>
       </div>
-    </div>
-  </div>
+    </section>
 
-
-  <!-- FOOTER -->
-  
-  <!-- The practice behind the product. -->
-  <section class="practice" aria-labelledby="practice-h">
-    <div class="practice-inner">
-      <p class="practice-eyebrow">The practice behind the software</p>
+    <!-- The practice behind the product. -->
+    <section class="practice" aria-labelledby="practice-h">
+      <p class="practice-label">The practice behind the software</p>
       <h2 id="practice-h">We built this for our own work first.</h2>
       <p>Lector exists because drafting long documents in Markdown, day after day, wore through the editors we tried.</p>
       <p>SIM DAD LLC is a communication consulting practice led by Dr. Alex P. Leith,
@@ -1097,11 +215,13 @@
         <a href="https://simdadllc.com#services">see what the practice does</a>
         or <a href="mailto:hello@simdadllc.com">start a conversation</a>.
       </p>
-    </div>
-  </section>
+    </section>
 
-<footer class="footer">
-    <div class="footer-inner">
+  </main>
+
+  <!-- FOOTER (on the desk) -->
+  <footer class="footer">
+    <div class="desk-row">
       <div>
         <div class="footer-brand">Lector</div>
         <div class="footer-sub">A product of SIM DAD LLC</div>
@@ -1117,8 +237,6 @@
     </div>
     <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
   </footer>
-
-
   <script>
     /* ── BREVO BACKEND ENDPOINT ─────────────────────────────────────
        Set this to your own backend endpoint that calls Brevo Contacts API.
