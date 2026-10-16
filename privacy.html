@@ -7,68 +7,27 @@
   <meta name="description" content="Privacy policy for Lector. How SIM DAD LLC handles data when you use the local writing app.">
   <link rel="canonical" href="https://uselector.app/privacy.html">
   <meta name="author" content="SIM DAD LLC">
-  <meta name="theme-color" content="#1F2937">
+  <meta name="theme-color" content="#E3E5E8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
   <meta name="robots" content="noindex, follow">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --accent:    #5C4B8A;
-      --accent-h:  #4E3F7A;
-      --text:      #111118;
-      --muted:     #4B5563;
-      --surface:   #F7F7F8;
-      --border:    #E4E4E7;
-      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --max-w:     760px;
-    }
-    body { font-family: var(--font); color: var(--text); background: #fff; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-
-    /* NAV */
-    nav { border-bottom: 1px solid var(--border); padding: 0 2rem; }
-    .nav-inner { max-width: var(--max-w); margin: 0 auto; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-brand { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-    .nav-back { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
-    .nav-back:hover { color: var(--text); }
-
-    /* CONTENT */
-    .page { max-width: var(--max-w); margin: 0 auto; padding: 4rem 2rem 6rem; }
-    .page-eyebrow { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
-    .page-title { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.5rem; }
-    .page-meta { font-size: 0.875rem; color: var(--muted); margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-
-    h2 { font-size: 1rem; font-weight: 700; margin: 2.5rem 0 0.75rem; }
-    p { margin-bottom: 1rem; font-size: 0.9375rem; color: #2D2D35; }
-    ul { margin: 0.5rem 0 1rem 1.5rem; }
-    ul li { font-size: 0.9375rem; color: #2D2D35; margin-bottom: 0.35rem; }
-
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; }
-    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-brand { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
-    .footer-sub { font-size: 0.775rem; color: var(--muted); margin-top: 2px; }
-    .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
-    .footer-links a { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy { max-width: var(--max-w); margin: 1.5rem auto 0; padding: 1.5rem 2rem 0; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
-  </style>
+  <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/lector.css">
 </head>
 <body>
 
-  <nav>
+  <nav class="nav nav-static">
     <div class="nav-inner">
-      <a href="/" class="nav-brand">Lector</a>
+      <a href="/" class="nav-brand"><span class="nav-brand-text">Lector</span></a>
       <a href="/" class="nav-back">&larr; Back to Lector</a>
     </div>
   </nav>
 
-  <main class="page">
-    <p class="page-eyebrow">Legal</p>
-    <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-meta">Lector &middot; SIM DAD LLC &middot; Effective April 12, 2026 &middot; Version 1.0</p>
+  <main class="sheet sheet-narrow">
+    <p class="running-head">Legal</p>
+    <h1 class="doc-title">Privacy Policy</h1>
+    <ul class="doc-meta"><li>Lector</li><li>SIM DAD LLC</li><li>Effective April 12, 2026</li><li>Version 1.0</li></ul>
+    <div class="doc">
 
     <p>This Privacy Policy describes how SIM DAD LLC (&ldquo;SIM DAD,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and protects information in connection with the Lector desktop application and the Lector website at <a href="https://uselector.app">uselector.app</a>. Lector is a local Markdown editor with text-to-speech that runs entirely on your machine.</p>
 
@@ -132,10 +91,11 @@
     <p>SIM DAD LLC<br>
     <a href="mailto:lector@simdadllc.com">lector@simdadllc.com</a><br>
     <a href="https://simdadllc.com">simdadllc.com</a></p>
+    </div>
   </main>
 
-  <footer>
-    <div class="footer-inner">
+  <footer class="footer">
+    <div class="desk-row">
       <div>
         <div class="footer-brand">Lector</div>
         <div class="footer-sub">A product of SIM DAD LLC</div>

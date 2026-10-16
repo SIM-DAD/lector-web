@@ -1,0 +1,252 @@
+/* Lector: the manuscript under revision.
+   A printed draft sheet on a desk, marked in an editor's blue pencil.
+   Brief: site-copy/DESIGN-BRIEFS-2026-10-15.md, section 4. Plan: restyle-2026-10/plans/lector-web.md */
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-opsz-normal.woff2") format("woff2-variations"),
+       url("/fonts/newsreader-latin-opsz-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-opsz-italic.woff2") format("woff2-variations"),
+       url("/fonts/newsreader-latin-opsz-italic.woff2") format("woff2");
+}
+
+/* ---- tokens ------------------------------------------------------------ */
+:root {
+  color-scheme: light dark;
+  --desk:     #E3E5E8;
+  --paper:    #FFFFFF;
+  --ink:      #000000;
+  --pencil:   #2348A8;
+  --graphite: #52565C;
+  --rule:     #C8CBD0;
+  --shadow:   0 1px 2px rgba(0, 0, 0, 0.08), 0 8px 28px rgba(0, 0, 0, 0.07);
+  --serif:    "Newsreader", "Iowan Old Style", Georgia, serif;
+  --measure:  64ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --desk:     #111214;
+    --paper:    #1B1C1F;
+    --ink:      #F1F1EF;
+    --pencil:   #9FB7F2;
+    --graphite: #B3B7BE;
+    --rule:     #393B41;
+    --shadow:   0 0 0 1px #26282C, 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* ---- base -------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: 1.1875rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--desk);
+  -webkit-font-smoothing: antialiased;
+}
+img, video, svg { display: block; max-width: 100%; }
+a { color: var(--pencil); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--pencil); outline-offset: 3px; border-radius: 2px; }
+strong { font-weight: 650; }
+p + p { margin-top: 1em; }
+ul { list-style: none; }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: fixed; left: 1rem; top: 1rem; z-index: 20; background: var(--paper); color: var(--ink);
+  padding: 0.6rem 0.9rem; border: 2px solid var(--pencil); }
+
+/* ---- the desk: nav and footer sit on it -------------------------------- */
+.nav { position: sticky; top: 0; z-index: 10; background: transparent; border-bottom: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s; }
+.nav.scrolled { background: var(--desk); border-color: var(--rule); }
+.nav-inner, .desk-row { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; min-height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav-brand { display: flex; align-items: center; text-decoration: none; color: var(--ink); }
+.nav-wordmark { height: 32px; width: auto; }
+.nav-brand-text { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; }
+.nav-back { font-size: 1rem; color: var(--graphite); text-decoration: none; }
+.nav-back:hover { color: var(--ink); text-decoration: underline; }
+
+.btn { display: inline-block; font: 600 1rem/1.2 var(--serif); padding: 0.65rem 1.1rem; border-radius: 3px;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer;
+  transition: background 0.12s, border-color 0.12s; }
+.btn:hover { background: var(--pencil); border-color: var(--pencil); color: var(--paper); }
+.btn:active { transform: translateY(1px); }
+
+/* ---- the sheet ---------------------------------------------------------- */
+.sheet { position: relative; max-width: 64rem; margin: 0.5rem auto 3rem; background: var(--paper);
+  box-shadow: var(--shadow); padding: 2.25rem 1.25rem 3rem; }
+@media (min-width: 720px)  { .sheet { width: calc(100% - 2.5rem); margin: 1rem auto 4rem; padding: 3rem 3rem 4rem 5.5rem; } }
+@media (min-width: 1104px) { .sheet { margin: 1.5rem auto 5rem; padding: 3.5rem 4rem 5rem 7rem; } }
+
+.sheet-narrow { max-width: 52rem; }
+.nav-static { position: static; }
+
+.running-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1.5rem;
+  font-size: 1rem; font-style: italic; color: var(--graphite); padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule); margin-bottom: 3rem; }
+.running-head .rh-right { display: flex; gap: 1.5rem; }
+
+.title h1, .doc-title {
+  font-weight: 500; font-size: clamp(3.1rem, 10vw, 6rem); line-height: 0.98; letter-spacing: -0.022em;
+  font-variation-settings: "opsz" 72; max-width: 12ch; }
+.doc-title { font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1.04; max-width: 18ch; }
+.title-lines { margin: 1.75rem 0 3.25rem; font-size: 1.125rem; font-style: italic; color: var(--graphite); line-height: 1.5; }
+
+.text { max-width: var(--measure); }
+.lede { position: relative; font-size: 1.375rem; line-height: 1.6; }
+.lede .mark { position: absolute; left: -2rem; top: 0.3em; bottom: 0.3em; width: 14px; height: calc(100% - 0.6em);
+  overflow: visible; color: var(--pencil); }
+.lede .mark path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .lede .mark path { animation: pencil 0.9s cubic-bezier(0.3, 0.6, 0.3, 1) 0.35s backwards; }
+}
+@keyframes pencil { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (max-width: 719px) { .lede { padding-left: 1.1rem; } .lede .mark { left: -0.15rem; } }
+.lede + p { margin-top: 1.4em; }
+
+/* parts with a margin for pencil notes */
+.part { margin-top: 4.5rem; display: grid; grid-template-columns: minmax(0, var(--measure)); column-gap: 3rem; }
+@media (min-width: 1104px) { .part { grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr); } }
+.part-head { position: relative; grid-column: 1; font-weight: 500; font-size: clamp(1.7rem, 4vw, 2.25rem);
+  line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 1.25rem; font-variation-settings: "opsz" 48; }
+.part .text { grid-column: 1; }
+.note { grid-column: 1; margin: 2rem 0 0; padding-left: 1rem; border-left: 2px solid var(--pencil);
+  font-style: italic; font-size: 1.25rem; line-height: 1.45; color: var(--pencil); max-width: 34ch; }
+@media (min-width: 1104px) {
+  .note { grid-column: 2; grid-row: 2; align-self: start; margin-top: 0.4rem; font-size: 1.125rem; }
+}
+
+/* end matter */
+.signoff { display: flex; align-items: center; gap: 1rem; margin-top: 4rem; font-style: italic; color: var(--graphite);
+  font-size: 1rem; line-height: 1.45; }
+.signature-avatar { width: 56px; height: 56px; border-radius: 50%; filter: grayscale(1); }
+
+.colophon { margin-top: 4.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); max-width: var(--measure); }
+.colophon-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.colophon-label { font-size: 1.5rem; font-weight: 500; }
+.colophon-price { font-size: clamp(3rem, 8vw, 4.5rem); font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums lining-nums;
+  font-variation-settings: "opsz" 72; }
+.colophon-price sup { font-size: 0.45em; vertical-align: 0.9em; margin-right: 0.05em; }
+.terms { display: grid; gap: 0.15rem 2rem; margin-top: 1.25rem; font-size: 1.0625rem; color: var(--graphite); line-height: 1.5; }
+@media (min-width: 720px) { .terms-pair { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; } }
+
+.end-waitlist { margin-top: 4.5rem; max-width: 34rem; }
+.end-waitlist h2, .back-matter h2, .practice h2 { font-weight: 500; font-size: clamp(1.7rem, 4vw, 2.25rem);
+  line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+.wl-intro { color: var(--graphite); font-size: 1.0625rem; margin-bottom: 1.75rem; }
+
+/* forms (index waitlist and beta page) */
+.wl-field { margin-bottom: 1.25rem; }
+.wl-field > label, .form label { display: block; font-weight: 600; font-size: 1.0625rem; margin-bottom: 0.35rem; }
+.wl-field label span, .hint { font-weight: 400; font-style: italic; color: var(--graphite); }
+input[type="email"], input:not([type]), input[type="text"], textarea {
+  width: 100%; font: 400 1.0625rem/1.4 var(--serif); color: var(--ink); background: var(--paper);
+  padding: 0.65rem 0.75rem; border: 1px solid var(--graphite); border-radius: 3px; }
+input::placeholder { color: var(--graphite); opacity: 1; }
+input:focus-visible, textarea:focus-visible { outline: 2px solid var(--pencil); outline-offset: 1px; border-color: var(--pencil); }
+textarea { min-height: 6rem; resize: vertical; }
+.radio-row label { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 400; }
+.radio-row input { accent-color: var(--pencil); width: 1.05rem; height: 1.05rem; }
+.wl-submit, .form button { margin-top: 0.5rem; }
+.wl-submit:disabled, .form button:disabled { opacity: 0.6; cursor: progress; }
+.wl-fine, .fine { margin-top: 0.75rem; font-size: 1rem; font-style: italic; color: var(--graphite); }
+.wl-success { display: none; padding: 1rem 1.1rem; border-left: 2px solid var(--pencil); }
+.wl-success.visible { display: block; }
+.wl-success h3 { font-size: 1.25rem; font-weight: 600; }
+.wl-success p { color: var(--graphite); }
+.wl-error { display: none; margin-top: 0.75rem; color: var(--pencil); font-weight: 600; }
+.wl-error.visible { display: block; }
+
+/* back matter: acknowledgments and the practice */
+.back-matter { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.oss-sub { color: var(--graphite); font-size: 1.0625rem; max-width: var(--measure); margin-bottom: 1.25rem; }
+.oss-list { display: grid; grid-template-columns: 1fr; column-gap: 3rem; max-width: 52rem; }
+@media (min-width: 900px) { .oss-list { grid-template-columns: 1fr 1fr; } }
+.oss-item { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: var(--graphite); font-size: 1rem; }
+.oss-item:hover .oss-item-name { text-decoration: underline; }
+.oss-item-name { color: var(--pencil); font-weight: 500; }
+.oss-item span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
+
+.practice { margin-top: 4.5rem; max-width: var(--measure); }
+.practice-label { font-style: italic; color: var(--graphite); font-size: 1rem; margin-bottom: 0.5rem; }
+.practice-cta { color: var(--graphite); }
+
+/* footer on the desk */
+.footer { padding: 0 0 2.5rem; color: var(--graphite); font-size: 1rem; }
+.footer .desk-row { align-items: flex-start; flex-wrap: wrap; min-height: 0; }
+.footer-brand { color: var(--ink); font-weight: 600; font-size: 1.25rem; }
+.footer-sub { font-style: italic; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem; }
+.footer-links a { color: var(--graphite); text-decoration: none; }
+.footer-links a:hover { color: var(--ink); text-decoration: underline; }
+.footer-copy { max-width: 64rem; margin: 1.25rem auto 0; padding: 0 1.25rem; font-size: 0.95rem; }
+
+/* ---- document pages: legal, beta, release log --------------------------- */
+.doc-meta { margin: 1.25rem 0 2.75rem; font-style: italic; color: var(--graphite); font-size: 1.0625rem; line-height: 1.5; }
+.doc { max-width: var(--measure); }
+.doc h2 { font-size: 1.375rem; font-weight: 600; line-height: 1.3; margin: 2.5rem 0 0.6rem; }
+.doc p, .doc li { font-size: 1.0625rem; }
+.doc ul { list-style: disc; padding-left: 1.25rem; margin: 0.6rem 0 1rem; }
+.doc ul li + li { margin-top: 0.35rem; }
+.doc .caps { font-size: 0.95rem; line-height: 1.6; }
+.doc table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.doc th { text-align: left; font-weight: 600; padding: 0.45rem 0.6rem 0.45rem 0; border-bottom: 1px solid var(--ink); }
+.doc td { padding: 0.45rem 0.6rem 0.45rem 0; border-bottom: 1px solid var(--rule); }
+
+.doc-lede { font-size: 1.3125rem; color: var(--graphite); margin-bottom: 2rem; max-width: 40ch; line-height: 1.5; }
+.doc .points { list-style: disc; padding-left: 1.25rem; }
+.doc hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+.form label { margin-top: 1.25rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.msg { padding: 0.9rem 1rem; border-left: 2px solid var(--pencil); margin-bottom: 1.5rem; }
+[hidden] { display: none !important; }
+
+/* release log */
+.rel { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+.ver { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
+.ver .num { font-size: 2.25rem; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.ver .name { font-style: italic; color: var(--graphite); font-size: 1.125rem; }
+.summary { font-size: 1.25rem; margin-top: 0.75rem; }
+ul.hi { list-style: disc; padding-left: 1.25rem; margin-top: 0.9rem; }
+ul.hi li { color: var(--ink); }
+ul.hi li + li { margin-top: 0.3rem; }
+.note-line { color: var(--graphite); font-style: italic; margin-top: 0.5rem; }
+
+/* ---- narrow screens ----------------------------------------------------- */
+.btn { white-space: nowrap; }
+.terms li { padding-left: 0.9rem; text-indent: -0.9rem; }
+.terms li + li { margin-top: 0.2rem; }
+.footer-links { row-gap: 0.6rem; }
+@media (max-width: 479px) {
+  .nav-wordmark { height: 24px; width: auto; }
+  .nav .btn { font-size: 0.95rem; padding: 0.55rem 0.8rem; }
+}
+
+/* the wordmark is set in ink, like the rest of the sheet's type (recolored by CSS; files untouched) */
+.nav-wordmark { filter: brightness(0); }
+@media (prefers-color-scheme: dark) { .nav-wordmark { filter: brightness(0) invert(0.94); } }
+.doc-title { margin-bottom: 1rem; }
+.doc-head { margin-bottom: 1.75rem; }
+.doc-head .doc-lede { margin-bottom: 0.5rem; }
+.terms { align-content: start; }
+.oss-item-name { white-space: nowrap; }
+/* document pages: the desk row lines up with the narrower sheet */
+.nav-static .nav-inner, .nav-static ~ .footer .desk-row, .nav-static ~ .footer .footer-copy { max-width: 52rem; }
+.doc p, .doc li { font-size: 1.125rem; }
+.doc h3 { font-size: 1.1875rem; font-weight: 600; font-style: italic; line-height: 1.3; margin: 1.75rem 0 0.5rem; }
+.doc-lede { max-width: 48ch; }
